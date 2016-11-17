@@ -2,9 +2,10 @@ extends ../layout
 
 block content
   h1= title
-  p Voici la liste des utilisateurs :
 
   a(href='/users/add') Ajouter un utilisateur
+  br
+  br
   table(border=1)
     tr
       th Id
@@ -12,10 +13,9 @@ block content
       th Prénom
       th Nom
       th Email
-      th Créé le :
-      th Modifié le :
-      th Action
-
+      th Créé :
+      th Modifié :
+      th Actions :
     each user in users
       tr
         td #{user._id}
@@ -23,8 +23,8 @@ block content
         td #{user.firstname}
         td #{user.lastname}
         td #{user.email}
-        td #{user.createdAt}
-        td #{user.modifiedAt}
+        td #{moment(user.createdAt).fromNow()}
+        td #{moment(user.modifiedAt).fromNow() || "Not Updated Yet !"}
         td
           a(href='/users/' + user._id) &nbsp;  Voir &nbsp; |
           a(href='/users/' + user._id + '/edit') &nbsp; Éditer &nbsp; |

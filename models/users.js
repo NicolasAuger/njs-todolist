@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const time = require('moment')
-time.locale('fr')
+const moment = require('moment')
+moment.locale('fr')
 
 var userSchema = mongoose.Schema({
     pseudo : {type: String, required: true, unique: true},
@@ -8,8 +8,8 @@ var userSchema = mongoose.Schema({
     lastname : {type: String, required: true, unique: false},
     email : {type: String, required: true, unique: true},
     password: {type: String, required: true, unique: false},
-    createdAt: {type: String},
-    modifiedAt: {type: String, default: "Not Updated Yet !"}
+    createdAt: {type: Date, default: Date.now},
+    modifiedAt: {type: Date, default: null}
 })
 
 var userModel = mongoose.model('users', userSchema)
@@ -23,7 +23,7 @@ module.exports = {
   get: (id, callback) => {
       //console.log('id :',id);
     userModel.find({"_id": id}, function(err, user) {
-        console.log(user);
+        //console.log(user);
         if(!err){
             callback(user[0])
         }else{
@@ -46,14 +46,12 @@ module.exports = {
 
   insert: (body, callback) => {
         var newUser = new userModel()
-        var accepted_attributes = ['pseudo', 'firstname', 'lastname', 'email', 'password']
-        var not_yet = "Not updated yet !"
+
         newUser.pseudo = body.pseudo
 		newUser.firstname = body.firstname
         newUser.lastname = body.lastname
         newUser.email = body.email
-        newUser.password = body.password
-        newUser.createdAt = time().calendar()
+        //newUser.createdAt = moment().calendar()
 
 		if (body.password1 == body.password2){
 			newUser.password = body.password1
@@ -67,37 +65,25 @@ module.exports = {
     },
 
 
-  update: (userId, params) => {
-    const possibleKeys = ['firstname', 'lastname', 'email', 'pseudo', 'password']
+    update: (id, body, callback) => {
 
-    let dbArgs = []
-    let queryArgs = []
-    for (key in params) {
-      if (-1 !== possibleKeys.indexOf(key)) {
-        queryArgs.push(`${key} = ?`)
-        dbArgs.push(params[key])
-      }
-    }
+  		userModel.findById(id, function (err, user) {
+  			if (err) throw(err)
+            console.log(body)
+            user.pseudo = body.pseudo
+    		user.firstname = body.firstname
+            user.lastname = body.lastname
+            user.email = body.email
+            user.modifiedAt = Date.now()
 
-    if (!queryArgs.length) {
-      let err = new Error('Bad Request')
-      err.status = 400
-      return Promise.reject(err)
-    }
-
-    dbArgs.push(userId)
-    dbArgs.unshift('UPDATE users SET ' + queryArgs.join(', ') + ' WHERE rowid = ?')
-
-    return db.run.apply(db, dbArgs).then((stmt) => {
-      if (stmt.changes === 0){
-        let err = new Error('Not found')
-        err.status = 404
-        return Promise.reject(err)
-      }
-
-      return stmt
-    })
-  },
+            //if (body.password1 == user.password && body.password2 == user.password && body.password1 == body.password2){
+  			user.save(function (err) {
+  				if (err) throw(err)
+  				callback()
+  			})
+            //}
+  		})
+  	},
 
   remove: (id ,callback) => {
 		userModel.remove({ "_id": id }, function(err) {
