@@ -9,6 +9,9 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "method-override": "^2.3.6",
+    "moment": "^2.16.0",
+    "mongodb": "^2.2.11",
+    "mongoose": "^4.6.7",
     "node-sass-middleware": "^0.9.8",
     "pug": "^2.0.0-beta6",
     "sqlite": "^2.2.2"

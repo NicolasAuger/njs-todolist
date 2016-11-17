@@ -8,10 +8,10 @@ BDD NoSQL:
 
 ___________________________________________________________
 Users:
-    ☐ Create User Table in Database
-    ☐ DL old Skeleton
-    ☐ Add TD2 elements
-    ☐ Add Password attribute
+    ✔ Create User Table in Database @done(2016-11-14 14:06) @project(Users)
+    ✔ DL old Skeleton @done(2016-11-14 13:24) @project(Users)
+    ✔ Add TD2 elements @done(2016-11-14 13:24) @project(Users)
+    ✔ Add Password attribute @done(2016-11-14 14:06) @project(Users)
     ☐ Method GET
     ☐ Method PUT
     ☐ Method POST
