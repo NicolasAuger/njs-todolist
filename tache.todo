@@ -4,7 +4,7 @@ Deadline:
 ___________________________________________________________
 BDD NoSQL:
     ☐ Token with Redis (Ioredis) @Optional
-    ☐ Database MongoDB (Mongoose) @Needed
+    ✔ Database MongoDB (Mongoose) @Needed @done(2016-11-18 16:01) @project(BDD NoSQL)
 
 ___________________________________________________________
 Users:
@@ -12,11 +12,11 @@ Users:
     ✔ DL old Skeleton @done(2016-11-14 13:24) @project(Users)
     ✔ Add TD2 elements @done(2016-11-14 13:24) @project(Users)
     ✔ Add Password attribute @done(2016-11-14 14:06) @project(Users)
-    ☐ Method GET
-    ☐ Method PUT
-    ☐ Method POST
-    ☐ Method DELETE
-    ☐ Manage JSON @Needed
+    ✔ Method GET @done(2016-11-18 16:00) @project(Users)
+    ✔ Method PUT @done(2016-11-18 16:00) @project(Users)
+    ✔ Method POST @done(2016-11-18 16:00) @project(Users)
+    ✔ Method DELETE @done(2016-11-18 16:00) @project(Users)
+    ✔ Manage JSON @Needed @done(2016-11-18 16:00) @project(Users)
 
     ☐ Use bcrypt module to hash password
     ☐ Add cookie-parser middleware
@@ -41,6 +41,10 @@ ___________________________________________________________
 Todos:
     ☐ Create Todos Table in Database
     ☐ Create REST "/todos" resssource (userId, message, createdAt, updatedAt, completedAt)
+        ☐ Method GET
+        ☐ Method PUT
+        ☐ Method POST
+        ☐ Method DELETE
     ☐ Home page redirects to /Todos
     ☐ Each User can see his Todos, check his todos,  complete his todos and move it to the end of the list
 
@@ -60,15 +64,15 @@ Visuels:
 
 ___________________________________________________________
 Notation:
-    ☐ NoSQL @Needed
+    ✔ NoSQL @Needed @done(2016-11-18 16:05) @project(Notation)
     ☐ Respect what is asked
     ☐ Fonctionnal
     ☐ API Rest (Manage JSON)
     ☐ Clean and detailled
     ☐ Asynchrone
     ☐ Security + Error management
-    ☐ Database and ExpressJs
+    ✔ Database and ExpressJs @done(2016-11-18 16:05) @project(Notation)
     ☐ Authentication
     ☐ Import teams notion
-    ☐ Use Git for code versionning
+    ✔ Use Git for code versionning @done(2016-11-18 16:05) @project(Notation)
     ☐ Security against SQL injections
