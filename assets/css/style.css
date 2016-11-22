@@ -1,9 +1,43 @@
 body {
-  background-color: #2980b9;
+  background-image: url("https://pbs.twimg.com/media/CmwK6z-WcAAQEWv.jpg");
+  background-size: cover;
   font: 1.2em Helvetica, "Lucida grande", Arial, sans-serif;
   color: #ffffff;
 }
 
 label {
   display: block;
+}
+
+.complete {
+  background-color: grey;
+  color: #595959;
+}
+
+tr {
+  background-color: #dddddd;
+  color: #292928;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+}
+
+.show {
+  background-color: #30be54;
+}
+
+.edit {
+  background-color: #205ba1;
+}
+
+.delete {
+  background-color: #961631;
+}
+
+.show a, .edit a, .delete a {
+  text-decoration: none;
+  color: white;
 }
