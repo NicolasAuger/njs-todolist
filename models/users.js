@@ -13,10 +13,6 @@ var userSchema = mongoose.Schema({
 })
 
 var userModel = mongoose.model('users', userSchema)
-mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/users', function(err) {
-    if (err) { throw err}
-})
 
 module.exports = {
 
@@ -60,6 +56,7 @@ module.exports = {
 				else{callback(data)}
 			});
 		}else{
+            console.log('Error : Passwords are not the same, try again !')
 			callback(null);
 		}
     },
@@ -69,7 +66,7 @@ module.exports = {
 
   		userModel.findById(id, function (err, user) {
   			if (err) throw(err)
-            console.log(body)
+            //console.log(body)
             user.pseudo = body.pseudo
     		user.firstname = body.firstname
             user.lastname = body.lastname
