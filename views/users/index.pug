@@ -1,31 +1,33 @@
 extends ../layout
 
 block content
-  h1= title
-  p #{moment(users[1].modifiedAt).fromNow()}
-  a(href='/users/add') Ajouter un utilisateur
-  br
-  br
-  table(border=1)
-    tr
-      th Id
-      th Pseudo
-      th Prénom
-      th Nom
-      th Email
-      th Créé :
-      th Modifié :
-      th Actions :
-    each user in users
-      tr
-        td #{user._id}
-        td #{user.pseudo}
-        td #{user.firstname}
-        td #{user.lastname}
-        td #{user.email}
-        td #{moment(user.createdAt).fromNow()}
-        td #{moment(user.modifiedAt).fromNow() != "Invalid date" ? moment(user.modifiedAt).fromNow() :  "Not Updated Yet !"}
-        td
-          a(href='/users/' + user._id, class="show") &nbsp;  Voir &nbsp; |
-          a(href='/users/' + user._id + '/edit', class="edit") &nbsp; Éditer &nbsp; |
-          a(href='/users/' + user._id + '?_method=delete', class="delete") &nbsp; Supprimer &nbsp;
+    h1= title
+    a(href='/users/add')
+        img(src='https://www.brandeps.com/icon-download/A/Add-user-01.svg', width='100px', height='100px')
+    br
+    br
+    table(border=1, cellspacing='5px')
+        tr
+            th Id
+            th Pseudo
+            th Prénom
+            th Nom
+            th Email
+            th Créé :
+            th Modifié :
+            th(colspan=3) Actions :
+        each user in users
+            tr
+                td #{user._id}
+                td #{user.pseudo}
+                td #{user.firstname}
+                td #{user.lastname}
+                td #{user.email}
+                td #{moment(user.createdAt).fromNow()}
+                td #{moment(user.modifiedAt).fromNow() != "Invalid date" ? moment(user.modifiedAt).fromNow() :  "Not Updated Yet !"}
+                td(class='show')
+                    a(href='/users/' + user._id) &nbsp;  Voir &nbsp;
+                td(class='edit')
+                    a(href='/users/' + user._id + '/edit') &nbsp; Éditer &nbsp;
+                td(class='delete')
+                    a(href='/users/' + user._id + '?_method=delete') &nbsp; Supprimer &nbsp;
