@@ -7,14 +7,25 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const sass = require('node-sass-middleware')
 const db = require('sqlite')
+const mongoose = require('mongoose')
+const moment = require('moment')
+moment.locale('fr')
 
 // Constantes et initialisations
 const PORT = process.PORT || 8080
 const app = express()
 
+
+mongoose.Promise = global.Promise
+mongoose.connect('mongodb://localhost/todolist', function(err) {
+    if (err) { throw err}
+})
+
 // Mise en place des vues
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+app.locals.moment = require('moment');
 
 // Middleware pour forcer un verbe HTTP
 app.use(methodOverride('_method', { methods: [ 'POST', 'GET' ] }))
@@ -45,6 +56,7 @@ app.use(express.static(path.join(__dirname, 'assets')))
 // La liste des différents routeurs (dans l'ordre)
 app.use('/', require('./routes/index'))
 app.use('/users', require('./routes/users'))
+app.use('/todos', require('./routes/todos'))
 
 // Erreur 404
 app.use(function(req, res, next) {
