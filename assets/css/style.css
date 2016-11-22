@@ -10,13 +10,17 @@ label {
 }
 
 .complete {
-  background-color: grey;
+  background-color: #939693;
   color: #595959;
 }
 
 tr {
   background-color: #dddddd;
   color: #292928;
+}
+
+td {
+  padding: 10px;
 }
 
 table {
@@ -40,4 +44,8 @@ table {
 .show a, .edit a, .delete a {
   text-decoration: none;
   color: white;
+}
+
+h1 {
+  text-align: center;
 }
