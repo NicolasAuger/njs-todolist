@@ -1,28 +1,13 @@
 @import "./settings";
 
-body {
-  //background-color: $color-primary;
-  background-image: url('https://pbs.twimg.com/media/CmwK6z-WcAAQEWv.jpg');
-  background-size: cover;
-  font: $font-primary;
-  color: $color-secondary;
-}
-
-label {
-  display: block;
-}
-
-
-.complete {
-    background-color: rgb(147, 150, 147);
-    color: rgb(89, 89, 89);
-}
-
+body {background-image: url('https://pbs.twimg.com/media/CmwK6z-WcAAQEWv.jpg'); background-size: cover; font: $font-primary; color: $color-secondary;}
+label {display: block;}
 tr {background-color: rgb(221, 221, 221); color: rgb(41, 41, 40); }
-td{padding:10px;}
-table{border-collapse: collapse; width:100%; text-align: center;}
-.show{background-color: rgb(48, 190, 84);}
-.edit{background-color: rgb(32, 91, 161);}
-.delete{background-color: rgb(150, 22, 49);}
-.show a, .edit a, .delete a{text-decoration: none; color: white;}
+td {padding:10px;}
+table {border-collapse: collapse; width:100%; text-align: center;}
+.complete {background-color: rgb(147, 150, 147); color: rgb(89, 89, 89);}
+.show {background-color: rgb(48, 190, 84);}
+.edit {background-color: rgb(32, 91, 161);}
+.delete {background-color: rgb(150, 22, 49);}
+.show a, .edit a, .delete a {text-decoration: none; color: white;}
 h1 {text-align: center;}
