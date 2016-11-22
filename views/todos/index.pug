@@ -3,12 +3,15 @@ extends ../layout
 block content
     h1= title
 
-    a(href='/todos/add') Ajouter une nouvelle tâche
+    //- a(href='/todos/add') Ajouter une nouvelle tâche
+        img(src='https://cdn3.iconfinder.com/data/icons/rcons-file-action/512/add_file-128.png', width='50px', height='50px')
     br
     br
     table(border=1, cellspacing='5px')
         tr
             th
+                a(href='/todos/add')
+                    img(src='https://cdn3.iconfinder.com/data/icons/rcons-file-action/512/add_file-128.png', width='50px', height='50px')
             th Id
             th Auteur
             th Tâche
