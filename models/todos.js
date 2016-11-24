@@ -37,7 +37,7 @@ module.exports = {
             }else{
                 throw err
             }
-        })
+        }).sort({is_completed: 1, createdAt: -1})
     },
 
 
