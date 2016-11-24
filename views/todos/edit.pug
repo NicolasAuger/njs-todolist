@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+  form(
+    method="post"
+    action=action
+  )
+    label
+      strong Auteur
+      input(name="author" value=todo.author)
+
+    label
+      strong Tâche
+      input(name="task" value=todo.task)
+
+    label
+      strong Destinataire
+      input(name="recipient" value=todo.recipient)
+
+    //- label
+    //-   strong Team
+    //-   input(name="email" value=user.email)
+
+    label
+      input(type="submit" value="Modifier")
