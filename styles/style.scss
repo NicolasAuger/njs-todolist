@@ -8,6 +8,8 @@ table {border-collapse: collapse; width:100%; text-align: center;}
 .complete {background-color: rgb(147, 150, 147); color: rgb(89, 89, 89);}
 .show {background-color: rgb(48, 190, 84);}
 .edit {background-color: rgb(32, 91, 161);}
+.not-active-div {background-color: rgb(124, 124, 124)}
+.not-active {pointer-events: none; cursor: default; text-decoration: none; color: black; opacity:0.2}
 .delete {background-color: rgb(150, 22, 49);}
 .show a, .edit a, .delete a {text-decoration: none; color: white;}
 h1 {text-align: center;}
