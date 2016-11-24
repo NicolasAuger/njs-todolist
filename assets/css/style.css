@@ -37,6 +37,18 @@ table {
   background-color: #205ba1;
 }
 
+.not-active-div {
+  background-color: #7c7c7c;
+}
+
+.not-active {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: black;
+  opacity: 0.2;
+}
+
 .delete {
   background-color: #961631;
 }

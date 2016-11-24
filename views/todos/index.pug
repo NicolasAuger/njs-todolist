@@ -39,7 +39,7 @@ block content
 
                 td(class='show')
                     a(href='/todos/' + todo._id) &nbsp;  Voir &nbsp;
-                td(class='edit')
-                    a(href='/todos/' + todo._id + '/edit') &nbsp; Éditer &nbsp;
+                td(class=todo.is_completed ? "not-active-div" : 'edit')
+                    a(href='/todos/' + todo._id + '/edit', class=todo.is_completed ? "not-active" : '') &nbsp; Éditer &nbsp;
                 td(class='delete')
                     a(href='/todos/' + todo._id + '?_method=delete') &nbsp; Supprimer &nbsp;
