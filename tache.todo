@@ -18,7 +18,7 @@ Users:
     ✔ Method DELETE @done(2016-11-18 16:00) @project(Users)
     ✔ Manage JSON @Needed @done(2016-11-18 16:00) @project(Users)
 
-    ☐ Use bcrypt module to hash password
+    ✔ Use bcrypt module to hash password @done(2016-11-24 18:05)
     ☐ Add cookie-parser middleware
 
 ___________________________________________________________
@@ -39,14 +39,14 @@ Session:
 
 ___________________________________________________________
 Todos:
-    ☐ Create Todos Table in Database
-    ☐ Create REST "/todos" resssource (userId, message, createdAt, updatedAt, completedAt)
-        ☐ Method GET
-        ☐ Method PUT
-        ☐ Method POST
-        ☐ Method DELETE
-    ☐ Home page redirects to /Todos
-    ☐ Each User can see his Todos, check his todos,  complete his todos and move it to the end of the list
+    ✔ Create Todos Table in Database @done(2016-11-24 16:20) @project(Todos)
+    ✔ Create REST "/todos" resssource (userId, message, createdAt, updatedAt, completedAt) @done(2016-11-24 16:20) @project(Todos)
+        ✔ Method GET @done(2016-11-24 16:20) @project(Todos)
+        ✔ Method PUT @done(2016-11-24 16:20) @project(Todos)
+        ✔ Method POST @done(2016-11-24 16:20) @project(Todos)
+        ✔ Method DELETE @done(2016-11-24 16:20) @project(Todos)
+    ✔ Home page redirects to /Todos @done(2016-11-24 16:20) @project(Todos)
+    ✔ Complete todos and move them to the end of the list @done(2016-11-24 16:21) @project(Todos)
 
 ___________________________________________________________
 Team:
@@ -58,8 +58,8 @@ Team:
 ___________________________________________________________
 Visuels:
     ☐ User
-    ☐ Users
-    ☐ Todos                 @Boostrap??
+    ✔ Users @done(2016-11-24 16:19) @project(Visuels)
+    ✔ Todos @done(2016-11-24 16:19) @project(Visuels)
     ☐ Teams
 
 ___________________________________________________________
@@ -67,7 +67,7 @@ Notation:
     ✔ NoSQL @Needed @done(2016-11-18 16:05) @project(Notation)
     ☐ Respect what is asked
     ☐ Fonctionnal
-    ☐ API Rest (Manage JSON)
+    ✔ API Rest (Manage JSON) @done(2016-11-24 16:19) @project(Notation)
     ☐ Clean and detailled
     ☐ Asynchrone
     ☐ Security + Error management
@@ -75,4 +75,4 @@ Notation:
     ☐ Authentication
     ☐ Import teams notion
     ✔ Use Git for code versionning @done(2016-11-18 16:05) @project(Notation)
-    ☐ Security against SQL injections
+    ✔ Security against SQL injections @done(2016-11-24 16:20) @project(Notation)
