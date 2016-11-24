@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 const moment = require('moment')
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 moment.locale('fr')
 
 var userSchema = mongoose.Schema({
@@ -51,7 +54,12 @@ module.exports = {
 
 		if (body.password1 == body.password2){
 			newUser.password = body.password1
+            var salt = bcrypt.genSaltSync(saltRounds);
+            var pass_hash = bcrypt.hashSync(newUser.password, salt);
+            newUser.password = pass_hash
+
             newUser.save(function(err, data) {
+                if(bcrypt.compareSync(body.password1, pass_hash)){console.log("Password hashé et crypté avec succes ! ")}else{console.log("Erreur : Le hash du password n'a pas fonctionné !")}
 				if (err){console.log('Error : ', err)}
 				else{callback(data)}
 			});
