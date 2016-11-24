@@ -5,7 +5,6 @@ const Todo = require('../models/todos.js')
 router.get('/', function(req, res, next) {
 	Todo.getAll(function(todos){
 		var data = {todos: todos, title: "TP Njs-TodoList - NodeJs / NoSQL", moment: require('moment')}
-		//console.log(data);
 		res.format({
 	      html: () => { res.render('todos/index', data) },
 	      json: () => { res.status(201).send({data: data}) }
@@ -64,7 +63,7 @@ router.get('/:id/edit', function(req, res, next) {
 router.get('/:id', (req, res, next) => {
 	var id = req.params.id
 	Todo.get(id, function(todo){
-	  	var data = {todo: todo, title:"TP Njs-TodoList - NodeJs / NoSQL"}
+	  	var data = {todo: todo, title:"TP Njs-TodoList - NodeJs / NoSQL", moment: require('moment')}
 	  	res.format({
 	  	  html: () => { res.render('todos/show', data) },
 	  	  json: () => { res.status(201).send({data: data}) }
@@ -102,7 +101,7 @@ router.get('/:id/complete', (req, res, next) => {
 
 router.post('/:id/complete', (req, res, next) => {
 	verif = req.body.complete
-	console.log(verif);
+	//console.log(verif);
 	switch (verif) {
 		case "Oui":
 			Todo.complete(req.params.id, function(todo){
