@@ -6,7 +6,6 @@ block content
     br
     table(border=1, cellspacing='5px')
         tr
-            th Id
             th Pseudo
             th Prénom
             th Nom
@@ -16,7 +15,6 @@ block content
             th(colspan=3) Actions :
         each user in users
             tr
-                td #{user._id}
                 td #{user.pseudo}
                 td #{user.firstname}
                 td #{user.lastname}
