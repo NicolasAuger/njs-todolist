@@ -19,7 +19,7 @@ Users:
     ✔ Manage JSON @Needed @done(2016-11-18 16:00) @project(Users)
 
     ✔ Use bcrypt module to hash password @done(2016-11-24 18:05)
-    ☐ Add cookie-parser middleware
+    ✔ Add cookie-parser middleware @done(2016-11-28 22:43)
 
 ___________________________________________________________
 Session:
