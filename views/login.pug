@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  h1=title
+  if (error)
+  p=error
+  p Connectez-vous à votre compte
+  form(
+    method="post"
+    action="index"
+  )
+    label
+      strong Pseudo
+      input(type="text" name="pseudo")
+
+    label
+      strong Mot de passe
+      input(type="password" name="password1")
+
+    label
+      input(type="submit" value="Envoyer")
+
+  br
+  br
+  a(href="/signup")
+    button Vous n'avez pas encore de compte ?
+
+  br
+  br
+
+  a(href="/todos")
+    button Voir toutes les todos
+  a(href="/users")
+      button Voir tous les utilisateurs
