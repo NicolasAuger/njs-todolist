@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+  h1=title
+  form(
+    method="post"
+    action="/"+userId+"/todos/"+todo._id+"/complete"
+  )
+
+      table(border=1)
+        tr
+          th Auteur
+          td= todo.author
+        tr
+          th Tâche
+          td= todo.task
+        tr
+          th Destinataire
+          td= todo.recipient
+        //- tr
+        //-   th Email
+        //-   td= todo.team
+        tr
+          th Créée le :
+          td #{moment(todo.createdAt).fromNow()}
+        tr
+          th Modifiée le :
+          td #{moment(todo.modifiedAt).fromNow() != "Invalid date" ? moment(todo.modifiedAt).fromNow() :  "Not Updated Yet !"}
+
+      p Vous êtes sur le point de completer cette tâche.
+      p Une fois completée, il ne sera plus possible de revenir en arrière.
+      p Êtes-vous sûr de vouloir compléter cette tâche ?
+      br
+      label
+        input(type="submit" value="Oui" name="complete")
+        a(href="/"+userId+"/todos")
+            button Non
