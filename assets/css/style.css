@@ -61,3 +61,7 @@ table {
 h1 {
   text-align: center;
 }
+
+#no-matche {
+  display: none;
+}
