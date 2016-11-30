@@ -1,6 +1,7 @@
 extends ../layout
 
 block content
+  h1=title
   form(
     method="post"
     action="/todos/"+todo._id+"/complete"
@@ -32,4 +33,5 @@ block content
       br
       label
         input(type="submit" value="Oui" name="complete")
-        input(type="submit" value="Non" name="complete")
+        a(href="/todos")
+            button Non

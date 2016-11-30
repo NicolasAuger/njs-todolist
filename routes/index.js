@@ -56,17 +56,91 @@ router.get("/:id/dashboard", function(req, res){
     }
 })
 
-
+// #######################################   Gérer les todos depuis l'interface d'un user connecté
 router.get('/:id/todos', function(req, res, next){
-	console.log(req);
     var pseudo = req.session.user.pseudo
     Todo.getAll(function(todos){
-		var data = {todos: todos, title: "TP Njs-TodoList - NodeJs / NoSQL", moment: require('moment'), userPseudo: req.session.user.pseudo}
+		var data = {todos: todos, title: "TP Njs-TodoList - NodeJs / NoSQL", moment: require('moment'), userPseudo: req.session.user.pseudo, userId: req.session.user._id}
 		res.format({
 	      html: () => { res.render('todos/index_user', data) },
 	      json: () => { res.status(201).send({data: data}) }
 	    })
 	})
+})
+
+// router.post('/:id/todos', function(req, res, next){
+// 	Todo.insert(req.body, function(todos){
+// 		res.redirect('/:id/todos')
+// 	})
+// })
+
+router.post('/:id/todos/add', function(req, res){ // Route post pour ajout d'une todo
+    Todo.insert(req.body, function(todos){
+        res.redirect('/:id/todos')
+    })
+})
+
+
+router.get('/:id/todos/add', function(req, res, next) {
+  res.format({
+    html: () => {
+      res.render('todos/add_user', {
+        todo: {},
+        userId: req.session.user._id,
+        userPseudo: req.session.user.pseudo
+      })
+    },
+    json: () => {
+      let error = new Error('Bad Request')
+      error.status = 400
+      next(error)
+    }
+  })
+})
+
+router.get('/:id/todos/:id', (req, res, next) => {
+	var id = req.params.id
+	Todo.get(id, function(todo){
+	  	var data = {todo: todo, title:"TP Njs-TodoList - NodeJs / NoSQL", moment: require('moment'), userId: req.session.user._id, userPseudo: req.session.user.pseudo}
+	  	res.format({
+	  	  html: () => { res.render('todos/show', data) },
+	  	  json: () => { res.status(201).send({data: data}) }
+	  	})
+	})
+})
+
+router.delete('/:id/todos/:id', (req, res, next) => {
+	var id = req.params.id
+    Todo.remove(id, function(){
+  	  res.redirect('/:id/todos')
+    })
+})
+
+
+router.get('/:id/todos/:id/complete', (req, res, next) => {
+	var id = req.params.id
+	Todo.get(id, function(todo){
+	  	var data = {todo: todo, title:"TP Njs-TodoList - NodeJs / NoSQL", moment : require('moment'), userId: req.session.user._id}
+	  	res.format({
+	  	  html: () => { res.render('todos/delete_user', data) },
+	  	  json: () => { res.status(201).send({data: data}) }
+	  	})
+	})
+})
+
+router.post('/:id/todos/:id/complete', (req, res, next) => {
+	verif = req.body.complete
+	//console.log(verif);
+	switch (verif) {
+		case "Oui":
+			Todo.complete(req.params.id, function(todo){
+				res.redirect("/:id/todos")
+			})
+			break;
+		default:
+			res.redirect('/:id/todos')
+			break;
+	}
 })
 
 
