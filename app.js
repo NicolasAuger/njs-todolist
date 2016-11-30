@@ -3,18 +3,21 @@ const path = require('path')
 
 // Dépendances 3rd party
 const express = require('express')
-const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const sass = require('node-sass-middleware')
-const db = require('sqlite')
 const mongoose = require('mongoose')
 const moment = require('moment')
+const bodyParser = require('body-parser')
+var session = require('express-session')
+// const Session = require('./models/session')
 moment.locale('fr')
 
 // Constantes et initialisations
 const PORT = process.PORT || 8080
 const app = express()
 
+// load the cookie-parsing middleware
+var cookieParser = require('cookie-parser');
 
 mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost/todolist', function(err) {
@@ -34,6 +37,12 @@ app.use(methodOverride('_method', { methods: [ 'POST', 'GET' ] }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
+//Middleware pour parser les cookies
+app.use(cookieParser());
+
+//Middleware pour utiliser les sessions
+app.use(session({secret:"secretStringForTodolistProjet"}));
+
 // Préprocesseur sur les fichiers scss -> css
 app.use(sass({
   src: path.join(__dirname, 'styles'),
@@ -44,14 +53,6 @@ app.use(sass({
 
 // On sert les fichiers statiques
 app.use(express.static(path.join(__dirname, 'assets')))
-
-// Middleware d'authentification
-// app.use((req, res, next) => {
-//   if(req.url == '/session')
-//     next()
-//   else
-//     // Vérifier l'authentification
-// })
 
 // La liste des différents routeurs (dans l'ordre)
 app.use('/', require('./routes/index'))
@@ -82,21 +83,20 @@ app.use(function(err, req, res, next) {
   // On set le status de la réponse
   res.status(data.status)
 
-  // Réponse multi-format
+ // Réponse multi-format
   res.format({
-    html: () => { res.render('error', data) },
+    html: () => {
+      res.render('error', {
+      message: data.message,
+      error: data.error,
+      status: data.status,
+      data : JSON.stringify(data)
+      }
+    )},
     json: () => { res.send(data) }
   })
 })
 
-db.open('bdd.db').then(() => {
-  console.log('> BDD ouverte')
-  return db.run('CREATE TABLE IF NOT EXISTS users (pseudo, firstname, lastname, email, password)')
-}).then(() => {
-  console.log('> Table persistée')
-  app.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log('> Serveur démarré sur le port : ', PORT)
-  })
-}).catch((err) => {
-  console.error('ERR > ', err)
 })
