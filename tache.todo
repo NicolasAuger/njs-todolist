@@ -47,11 +47,12 @@ Todos:
         ✔ Method DELETE @done(2016-11-24 16:20) @project(Todos)
     ✔ Home page redirects to /Todos @done(2016-11-24 16:20) @project(Todos)
     ✔ Complete todos and move them to the end of the list @done(2016-11-24 16:21) @project(Todos)
+    ✔ A user can see only his own todos @done(2016-11-30 02:31) @project(Todos)
 
 ___________________________________________________________
 Team:
     ☐ A user can be in a team or not
-    ☐ A user has an option "See my todos / See team's todos"
+    ☐ A user has an option "See team's todos"
     ☐ Todos can be given to an other user from the same team
     ☐ Todos can be completed by every user of the team
 
@@ -72,7 +73,7 @@ Notation:
     ☐ Asynchrone
     ☐ Security + Error management
     ✔ Database and ExpressJs @done(2016-11-18 16:05) @project(Notation)
-    ☐ Authentication
+    ✔ Authentication @done(2016-11-30 02:31) @project(Notation)
     ☐ Import teams notion
     ✔ Use Git for code versionning @done(2016-11-18 16:05) @project(Notation)
     ✔ Security against SQL injections @done(2016-11-24 16:20) @project(Notation)
