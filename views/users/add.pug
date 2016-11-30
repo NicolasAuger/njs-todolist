@@ -3,24 +3,26 @@ extends ../layout
 block content
   form(
     method="post"
-    action=action
+    action='../signup'
   )
     label
       strong Pseudo
-      input(name="pseudo" value=user.pseudo)
+      input(name="pseudo")
 
     label
       strong Prénom
-      input(name="firstname" value=user.firstname)
+      input(name="firstname")
 
     label
       strong Nom
-      input(name="lastname" value=user.lastname)
+      input(name="lastname")
 
     label
       strong Email
-      input(name="email" value=user.email)
+      input(name="email")
 
+    br
+    p Les deux mots de passe doivent être identiques sinon l'inscription sera un échec.
     label
       strong Mot de passe
       input(type="password" name="password1")

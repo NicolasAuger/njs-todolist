@@ -18,8 +18,7 @@ router.post('/', function(req, res, next){
 	})
 })
 
-router.post('/add', function(req, res){
-	//console.log("Ajout d'un utilisateur");
+router.post('/add', function(req, res){ // Route post pour ajout d'un utilisateur
 	res.render('todos/add', {
 		title: "TP Njs-TodoList - NodeJs / NoSQL"
 	})

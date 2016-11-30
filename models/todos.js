@@ -18,9 +18,7 @@ var todoModel = mongoose.model('todos', todoSchema)
 module.exports = {
 
     get: (id, callback) => {
-        //console.log('id :',id);
         todoModel.find({"_id": id}, function(err, todo) {
-            //console.log(todo);
             if(!err){
                 callback(todo[0])
             }else{
@@ -28,7 +26,6 @@ module.exports = {
             }
         })
     },
-
 
     getAll: (callback) => {
         todoModel.find({}, function(err, todos) {
@@ -48,7 +45,6 @@ module.exports = {
 		newTodo.task = body.task
         newTodo.recipient = body.recipient
         //newTodo.team = body.team
-        //newTodo.createdAt = moment().calendar()
         newTodo.save(function(err, data) {
             if (err){console.log('Error : ', err)}
             else{callback(data)}
@@ -59,7 +55,6 @@ module.exports = {
     update: (id, body, callback) => {
   		todoModel.findById(id, function (err, todo) {
   			if (err) throw(err)
-            //console.log(body)
             todo.author = body.author
     		todo.task = body.task
             todo.recipient = body.recipient
@@ -70,7 +65,7 @@ module.exports = {
   				if (err) throw(err)
   				callback()
   			})
-            //}
+
   		})
   	},
 
@@ -85,7 +80,6 @@ module.exports = {
 
     complete: (id, callback) => {
         todoModel.findOne({"_id": id}, function(err, todo) { // Faire findOne plutôt que Find et return todo[0].
-            //console.log(todo);
             todo.is_completed = true
             todo.completedAt = Date.now()
             todo.save(function (err) {

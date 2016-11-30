@@ -1,11 +1,13 @@
 const router = require('express').Router()
 const User = require('../models/users.js')
+const moment = require('moment')
+const Todo = require('../models/todos.js')
+moment.locale('fr')
 
 /* Users : liste */
 router.get('/', function(req, res, next) {
 	User.getAll(function(users){
 		var data = {users: users, title: "TP Njs-TodoList - NodeJs / NoSQL", moment: require('moment')}
-		//console.log(data);
 		res.format({
 	      html: () => { res.render('users/index', data) },
 	      json: () => { res.status(201).send({data: data}) }
@@ -20,12 +22,10 @@ router.post('/', function(req, res, next){
 })
 
 router.post('/add', function(req, res){
-	//console.log("Ajout d'un utilisateur");
 	res.render('users/add', {
 		title: "TP Njs-TodoList - NodeJs / NoSQL"
 	})
 })
-
 
 router.get('/add', function(req, res, next) {
   res.format({
@@ -42,6 +42,7 @@ router.get('/add', function(req, res, next) {
     }
   })
 })
+
 
 router.get('/:id/edit', function(req, res, next) {
   User.get(req.params.id, function(user) {
@@ -76,7 +77,6 @@ router.post('/:id/edit', (req, res) => {
 	var id = req.params.id
 	var body = req.body
 	User.update(id,body, () => {
-		//console.log(body.pseudo);
 		res.redirect('/users')
 	})
 })
@@ -89,29 +89,3 @@ router.delete('/:id', (req, res, next) => {
 })
 
 module.exports = router
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///

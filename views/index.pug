@@ -1,5 +1,10 @@
-extends layout
-
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/css/style.css')
+  body
+    block content
 block content
   h1= title
   p Bienvenue sur le dashboard du projet !
@@ -9,6 +14,6 @@ block content
   a(href="/users/")
     button Voir la liste des utilisateurs
 
-  p Dans un second temps vous pouvez avoir accès à la liste complète des tâches de tous les utilisateurs :
-  a(href="/todos/")
-    button Voir la liste des tâches
+  p Dans un second temps vous pouvez avoir accès à la liste complète de vos tâches:
+  a(href="/"+userId+"/todos")
+    button Voir la liste de mes tâches

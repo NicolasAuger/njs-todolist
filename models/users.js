@@ -20,25 +20,24 @@ var userModel = mongoose.model('users', userSchema)
 module.exports = {
 
   get: (id, callback) => {
-      //console.log('id :',id);
     userModel.find({"_id": id}, function(err, user) {
-        //console.log(user);
-        if(!err){
-            callback(user[0])
-        }else{
-            throw err
-        }
+        if(!err){callback(user[0])}
+        else{throw err}
+    })
+  },
+
+  getOne: (pseudo, callback) => {
+    userModel.find({"pseudo": pseudo}, function(err, user) {
+        if(!err){callback(user[0])}
+        else{throw err}
     })
   },
 
 
   getAll: (callback) => {
     userModel.find({}, function(err, users) {
-        if(!err){
-            callback(users)
-        }else{
-            throw err
-        }
+        if(!err){callback(users)}
+        else{throw err}
     })
   },
 
@@ -50,8 +49,9 @@ module.exports = {
 		newUser.firstname = body.firstname
         newUser.lastname = body.lastname
         newUser.email = body.email
-        //newUser.createdAt = moment().calendar()
-
+        if (!body.pseudo || !body.firstname || !body.lastname || !body.email){
+            console.log("Error: One or more fields are empty");
+        }
 		if (body.password1 == body.password2){
 			newUser.password = body.password1
             var salt = bcrypt.genSaltSync(saltRounds);
@@ -59,14 +59,16 @@ module.exports = {
             newUser.password = pass_hash
 
             newUser.save(function(err, data) {
-                if(bcrypt.compareSync(body.password1, pass_hash)){console.log("Password hashé et crypté avec succes ! ")}else{console.log("Erreur : Le hash du password n'a pas fonctionné !")}
-				if (err){console.log('Error : ', err)}
-				else{callback(data)}
+                if(bcrypt.compareSync(body.password1, pass_hash)){
+                    console.log("Password hashé et crypté avec succes ! ")
+                }else{
+                    console.log("Erreur : Le hash du password n'a pas fonctionné !")}
+				if (err){console.log('Error !')}
+				else{callback("data")}
 			});
 		}else{
             console.log('Error : Passwords are not the same, try again !')
-			callback(null);
-		}
+            callback(null)}
     },
 
 
@@ -74,19 +76,17 @@ module.exports = {
 
   		userModel.findById(id, function (err, user) {
   			if (err) throw(err)
-            //console.log(body)
             user.pseudo = body.pseudo
     		user.firstname = body.firstname
             user.lastname = body.lastname
             user.email = body.email
             user.modifiedAt = Date.now()
 
-            //if (body.password1 == user.password && body.password2 == user.password && body.password1 == body.password2){
   			user.save(function (err) {
   				if (err) throw(err)
   				callback()
   			})
-            //}
+
   		})
   	},
 
