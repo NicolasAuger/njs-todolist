@@ -4,6 +4,11 @@ const Todo = require('../models/todos.js')
 var session = require('express-session')
 var bcrypt = require('bcrypt')
 /* Page d'accueil */
+
+router.get('/',function(req, res, next){
+    res.redirect('/index')
+})
+
 router.get('/index', function(req, res, next) { //Affiche le formulaire de logIn
   res.render('login', {
       title: 'TP Njs-TodoList - NodeJs / NoSQL' })
