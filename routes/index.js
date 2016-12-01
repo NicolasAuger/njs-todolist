@@ -29,7 +29,7 @@ router.post('/index', function(req, res) {
             console.log("Les mots de passe correspondent ! Vous etes authentifiés avec succès");
             res.redirect('/'+user._id+'/dashboard')
         }else{
-            console.log("Les deux mdp ne sont pas identifiques");
+            console.log("Mauvais mot de passe, connexion échouée");
             res.redirect('/index')
         }
     })

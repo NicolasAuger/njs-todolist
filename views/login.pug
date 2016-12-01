@@ -4,33 +4,35 @@ block content
   h1=title
   if (error)
   p=error
-  p Connectez-vous à votre compte
+
   form(
     method="post"
     action="index"
+    id="login_form"
   )
-    label
-      strong Pseudo
-      input(type="text" name="pseudo")
+    h2 Connectez-vous à votre compte
+    input(type="text" placeholder="Pseudo" name="pseudo")
+    input(type="password" placeholder="Password" name="password1")
+    input(id="login_form_submit" type="submit" value="Se connecter")
 
-    label
-      strong Mot de passe
-      input(type="password" name="password1")
-
-    label
-      input(type="submit" value="Envoyer")
-
-  br
-  br
-  p Vous n'avez pas encore de compte ? Ce n'est pas grave
   a(href="/signup")
-    button(id="button_style") Créer mon compte maintenant
+    button(id="button_style_create")
+      span Créer mon compte maintenant
 
   br
   br
 
   p Actions supplémentaires :
   a(href="/todos")
-    button(id="button_style") Voir toutes les todos
+    button(id="button_style")
+        span Voir toutes les todos
   a(href="/users")
-    button(id="button_style") Voir tous les utilisateurs
+    button(id="button_style")
+        span Voir tous les utilisateurs
+  a(href="/teams")
+    button(id="button_style")
+        span Voir toutes les teams
+
+  //- 
+  //- img(id="two_prob_four_hours" src="http://s2.quickmeme.com/img/d3/d339620bd26722646549f3e4817675e89687fa23aee2516f0ededa387842c19f.jpg" width="500px" height="250px")
+  //- img(id="no_idea_what_doing" src="http://skelbiu-img.dgn.lt/1_5_269484525/kompiuterio-programines-irangos-tvarkymas.jpg" width="500px" height="250px")
