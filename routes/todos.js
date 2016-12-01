@@ -48,6 +48,7 @@ router.get('/:id/edit', function(req, res, next) {
       html: () => {
         res.render('todos/edit', {
           todo: todo,
+		  title: "TP Njs-TodoList - NodeJs / NoSQL"
         })
       },
       json: () => {
@@ -89,7 +90,7 @@ router.delete('/:id', (req, res, next) => {
 
 router.get('/:id/complete', (req, res, next) => {
 	var id = req.params.id
-	Todo.complete(id, function(todo){
+	Todo.get(id, function(todo){
 	  	var data = {todo: todo, title:"TP Njs-TodoList - NodeJs / NoSQL", moment : require('moment')}
 	  	res.format({
 	  	  html: () => { res.render('todos/delete', data) },

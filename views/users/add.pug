@@ -2,35 +2,28 @@ extends ../layout
 
 block content
   h1= title
+  br
+  br
   form(
     method="post"
     action='../signup'
+    id="create_form"
   )
-    label
-      strong Pseudo
-      input(name="pseudo")
+    h2 Création d'un nouveau compte
+    div(id=("create_form_pass"))
 
-    label
-      strong Prénom
-      input(name="firstname")
+      input(name="pseudo" placeholder="* Pseudo")
 
-    label
-      strong Nom
-      input(name="lastname")
+      input(name="firstname" placeholder="* Prénom")
 
-    label
-      strong Email
-      input(name="email")
+      input(name="lastname" placeholder="* Nom")
 
-    br
-    p Les deux mots de passe doivent être identiques sinon l'inscription sera un échec.
-    label
-      strong Mot de passe
-      input(type="password" name="password1")
 
-    label
-      strong Confirmer votre mot de passe
-      input(type="password" name="password2")
 
-    label
-      input(type="submit" value="Envoyer")
+    div(id=("create_form_pass"))
+      input(name="email" placeholder="* Email")
+      input(type="password" placeholder="* Mot de passe" name="password1")
+
+      input(type="password" placeholder="* Confirmer votre mot de passe" name="password2")
+    div(id="clear")
+    input(id="create_form_submit" type="submit" value="Envoyer")
