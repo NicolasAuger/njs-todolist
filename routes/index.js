@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const User = require('../models/users.js')
 const Todo = require('../models/todos.js')
+const Team = require('../models/teams.js')
 var session = require('express-session')
 var bcrypt = require('bcrypt')
 /* Page d'accueil */
@@ -36,16 +37,36 @@ router.post('/index', function(req, res) {
 
 })
 
+
 router.get('/signup', function(req, res, next){
-    res.render('users/add',{
-        title: 'TP Njs-TodoList - NodeJs / NoSQL'
-    })
+    Team.getAll(function(teams){
+        res.format({
+            html: () => {
+                res.render('users/add', {
+                    teams: teams,
+                    action: '/signup',
+      		        title: "TP Njs-TodoList - NodeJs / NoSQL",
+                  })
+                },
+            json: () => {
+                let error = new Error('Bad Request')
+                error.status = 400
+                next(error)
+            }
+        })
+	})
 })
 
 router.post('/signup', function(req, res){
-    User.insert(req.body, function(users){
-		res.redirect('/index')
-	})
+    var body = req.body
+    if (!body.pseudo || !body.firstname || !body.lastname || !body.email || !body.password1 || !body.password2){
+        console.log("Error: One or more fields are empty");
+        res.redirect('/signup')
+    }else{
+        User.insert(body, function(users){
+            res.redirect('/index')
+        })
+    }
 })
 
 router.get("/:id/dashboard", function(req, res){
@@ -56,7 +77,7 @@ router.get("/:id/dashboard", function(req, res){
         return res.status(401).send()
     }else{
         res.render('index', {
-            title: 'TP Njs-TodoList - NodeJs / NoSQL', userId: req.session.user._id  })
+            title: 'TP Njs-TodoList - NodeJs / NoSQL', userId: req.session.user._id, userPseudo: req.session.user.pseudo  })
         // return res.status(200).send("Bienvenue sur ton dashboard privé")
     }
 })
@@ -135,7 +156,6 @@ router.get('/:id/todos/:id/complete', (req, res, next) => {
 
 router.post('/:id/todos/:id/complete', (req, res, next) => {
 	verif = req.body.complete
-	//console.log(verif);
 	switch (verif) {
 		case "Oui":
 			Todo.complete(req.params.id, function(todo){

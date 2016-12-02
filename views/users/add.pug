@@ -6,7 +6,7 @@ block content
   br
   form(
     method="post"
-    action='../signup'
+    action=action
     id="create_form"
   )
     h2 Création d'un nouveau compte
@@ -17,6 +17,10 @@ block content
       input(name="firstname" placeholder="* Prénom")
 
       input(name="lastname" placeholder="* Nom")
+
+      select(name="team")
+          each team, i in teams
+              option(value=team._id) Team : #{team.name}
 
 
 

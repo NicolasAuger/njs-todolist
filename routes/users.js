@@ -2,6 +2,7 @@ const router = require('express').Router()
 const User = require('../models/users.js')
 const moment = require('moment')
 const Todo = require('../models/todos.js')
+const Team = require('../models/teams.js')
 moment.locale('fr')
 
 /* Users : liste */
@@ -22,24 +23,32 @@ router.post('/', function(req, res, next){
 })
 
 router.post('/add', function(req, res){
-	res.render('users/add', {
-		title: "TP Njs-TodoList - NodeJs / NoSQL"
+	Team.getAll(function(teams){
+		res.render('users/add', {
+			title: "TP Njs-TodoList - NodeJs / NoSQL",
+			user: {},
+	        action: '/users',
+			teams: teams
+		})
 	})
 })
 
 router.get('/add', function(req, res, next) {
-  res.format({
-    html: () => {
-      res.render('users/add', {
-        user: {},
-        action: '/users'
-      })
-    },
-    json: () => {
-      let error = new Error('Bad Request')
-      error.status = 400
-      next(error)
-    }
+  Team.getAll(function(teams){
+	  res.format({
+		html: () => {
+		  res.render('users/add', {
+			user: {},
+			action: '/users',
+		    teams: teams
+		  })
+		},
+		json: () => {
+		  let error = new Error('Bad Request')
+		  error.status = 400
+		  next(error)
+		}
+	  })
   })
 })
 

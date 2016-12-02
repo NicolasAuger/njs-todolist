@@ -7,13 +7,20 @@ html
     block content
 block content
   h1= title
-  p Bienvenue sur le dashboard du projet !
+  p Bienvenue sur le dashboard du projet, #{userPseudo}
   br
   br
-  p Dans un premier temps vous pouvez avoir accès à la liste complète des utilisateurs :
+  p Accès à la liste complète des utilisateurs :
   a(href="/users/")
-    button(id="button_style") Voir la liste des utilisateurs
+    button(id="button_style")
+      span Voir la liste des utilisateurs
 
-  p Dans un second temps vous pouvez avoir accès à la liste complète de vos tâches:
+  p Accès à la liste complète de vos tâches:
   a(href="/"+userId+"/todos")
-    button(id="button_style") Voir la liste de mes tâches
+    button(id="button_style")
+     span Voir la liste de mes tâches
+
+  p Accès à la liste complète des teams:
+  a(href="/"+userId+"/todos")
+    button(id="button_style")
+     span Voir la liste des teams

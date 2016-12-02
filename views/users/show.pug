@@ -6,6 +6,9 @@ block content
   br
   table(border=1)
     tr
+      th ID
+      td= user._id
+    tr
       th Pseudo
       td= user.pseudo
     tr
@@ -17,6 +20,9 @@ block content
     tr
       th Email
       td= user.email
+    tr
+      th Team
+      td= user.team.name
     tr
       th Crée le :
       td= user.createdAt

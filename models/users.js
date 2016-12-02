@@ -1,16 +1,18 @@
 const mongoose = require('mongoose')
 const moment = require('moment')
 var bcrypt = require('bcrypt');
+const Team = require('../models/teams.js')
 const saltRounds = 10;
 
 moment.locale('fr')
 
 var userSchema = mongoose.Schema({
-    pseudo : {type: String, required: true, unique: true},
-    firstname : {type: String, required: true, unique: false},
-    lastname : {type: String, required: true, unique: false},
-    email : {type: String, required: true, unique: true},
-    password: {type: String, required: true, unique: false},
+    pseudo : {type: String, unique: true},
+    firstname : {type: String, unique: false},
+    lastname : {type: String, unique: false},
+    email : {type: String, unique: true},
+    team : {type: mongoose.Schema.Types.ObjectId, ref: "teams"},
+    password: {type: String, unique: false},
     createdAt: {type: Date, default: Date.now},
     modifiedAt: {type: Date, default: null}
 })
@@ -33,9 +35,16 @@ module.exports = {
     })
   },
 
+  getInTeam: (team, callback) => {
+    userModel.find({"team": team}, function(err, users){
+        if(!err){callback(users)}
+        else{throw err}
+    })
+  },
+
 
   getAll: (callback) => {
-    userModel.find({}, function(err, users) {
+    userModel.find({}).populate("team", "name").exec(function(err, users) {
         if(!err){callback(users)}
         else{throw err}
     })
@@ -49,26 +58,26 @@ module.exports = {
 		newUser.firstname = body.firstname
         newUser.lastname = body.lastname
         newUser.email = body.email
-        if (!body.pseudo || !body.firstname || !body.lastname || !body.email){
-            console.log("Error: One or more fields are empty");
-        }
+        newUser.team = body.team
+
 		if (body.password1 == body.password2){
 			newUser.password = body.password1
             var salt = bcrypt.genSaltSync(saltRounds);
             var pass_hash = bcrypt.hashSync(newUser.password, salt);
             newUser.password = pass_hash
-
-            newUser.save(function(err, data) {
-                if(bcrypt.compareSync(body.password1, pass_hash)){
-                    console.log("Password hashé et crypté avec succes ! ")
-                }else{
-                    console.log("Erreur : Le hash du password n'a pas fonctionné !")}
-				if (err){console.log('Error !')}
-				else{callback("data")}
-			});
+            if(bcrypt.compareSync(body.password1, pass_hash)){
+                console.log("Password hashé et crypté avec succes ! ")
+            }else{
+                console.log("Erreur : Le hash du password n'a pas fonctionné !")
+            }
+            newUser.save(function(err) {
+                if (err){console.log(err)}
+                else{callback()}
+			})
 		}else{
             console.log('Error : Passwords are not the same, try again !')
-            callback(null)}
+            callback(null)
+        }
     },
 
 
@@ -80,6 +89,7 @@ module.exports = {
     		user.firstname = body.firstname
             user.lastname = body.lastname
             user.email = body.email
+            user.team = body.team
             user.modifiedAt = Date.now()
 
   			user.save(function (err) {
