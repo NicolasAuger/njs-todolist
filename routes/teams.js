@@ -66,18 +66,14 @@ router.get('/:id/edit', function(req, res, next) {
 router.get('/:id', (req, res, next) => {
 	var id = req.params.id
     var body = req.body
-    var members = Team.getTeamMembers(req.body.name, function(err, users){
-        return users
-    })
-    var number_of_members = Team.count(body, function(err, teams){
-        return teams
-    })
 	Team.get(id, function(team){
-	  	var data = {team: team, title:"TP Njs-TodoList - NodeJs / NoSQL", members: members, nbr: number_of_members}
-	  	res.format({
-	  	  html: () => { res.render('teams/show', data) },
-	  	  json: () => { res.status(201).send({data: data}) }
-	  	})
+		User.getUsersInTeam(team._id, function(users){
+			var data = {team: team, title:"TP Njs-TodoList - NodeJs / NoSQL", nbr: users.length, members: users}
+		  	res.format({
+		  	  html: () => { res.render('teams/show', data) },
+		  	  json: () => { res.status(201).send({data: data}) }
+		  	})
+		})
 	})
 })
 

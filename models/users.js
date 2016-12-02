@@ -28,6 +28,20 @@ module.exports = {
     })
   },
 
+  getAllForOne: (id, callback) => {
+    userModel.find({"_id": id}).populate("team", "name").exec(function(err, user) {
+        if(!err){callback(user[0])}
+        else{throw err}
+    }) 
+  },
+
+  getUsersInTeam: (teamId, callback) => {
+    userModel.find({"team": teamId}, function(err, users) {
+        if(!err){callback(users)}
+        else{throw err}
+    }).count()
+  },
+
   getOne: (pseudo, callback) => {
     userModel.find({"pseudo": pseudo}, function(err, user) {
         if(!err){callback(user[0])}
@@ -51,6 +65,7 @@ module.exports = {
   },
 
 
+
   insert: (body, callback) => {
         var newUser = new userModel()
 
@@ -58,7 +73,7 @@ module.exports = {
 		newUser.firstname = body.firstname
         newUser.lastname = body.lastname
         newUser.email = body.email
-        newUser.team = body.team
+        newUser.team = body.team != "none" ? body.team : null
 
 		if (body.password1 == body.password2){
 			newUser.password = body.password1
@@ -89,7 +104,7 @@ module.exports = {
     		user.firstname = body.firstname
             user.lastname = body.lastname
             user.email = body.email
-            user.team = body.team
+            user.team = body.team != "none" ? body.team : null
             user.modifiedAt = Date.now()
 
   			user.save(function (err) {

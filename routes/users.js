@@ -55,25 +55,27 @@ router.get('/add', function(req, res, next) {
 
 router.get('/:id/edit', function(req, res, next) {
   User.get(req.params.id, function(user) {
-
-    res.format({
-      html: () => {
-        res.render('users/edit', {
-          user: user,
-        })
-      },
-      json: () => {
-        let error = new Error('Bad Request')
-        error.status = 400
-        next(error)
-      }
-    })
+	Team.getAll(function(teams){
+	    res.format({
+	      html: () => {
+	        res.render('users/edit', {
+	          user: user,
+			  teams: teams
+	        })
+	      },
+	      json: () => {
+	        let error = new Error('Bad Request')
+	        error.status = 400
+	        next(error)
+	      }
+	    })
+	  })
   })
 })
 
 router.get('/:id', (req, res, next) => {
 	var id = req.params.id
-	User.get(id, function(user){
+	User.getAllForOne(id, function(user){
 	  	var data = {user: user, title:"TP Njs-TodoList - NodeJs / NoSQL",  welcome: "Bienvenue "+ user.pseudo}
 	  	res.format({
 	  	  html: () => { res.render('users/show', data) },

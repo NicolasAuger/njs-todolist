@@ -26,7 +26,10 @@ block content
 
     label
       strong Team
-      input(name="team" value=user.team)
+      select(name="team")
+        option(value="none", selected=(!!user.team)) Aucune
+        each team, i in teams
+          option(value=team._id, selected=(user.team && user.team.toString() == team._id.toString())) Team : #{team.name}
 
 
     label

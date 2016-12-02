@@ -22,10 +22,10 @@ block content
       td= user.email
     tr
       th Team
-      td= user.team.name
+      td #{user.team != null ? user.team.name : "N'appartient à aucune team"}
     tr
       th Crée le :
-      td= user.createdAt
+      td #{moment(user.createdAt).fromNow()}
     tr
       th Modifié le :
-      td= user.modifiedAt
+      td #{moment(user.modifiedAt).fromNow() != "Invalid date" ? moment(user.modifiedAt).fromNow() :  "Not Updated Yet !"}

@@ -6,7 +6,6 @@ moment.locale('fr')
 var teamSchema = mongoose.Schema({
 	name:String,
     slogan: String,
-    nb_of_members: {type: Number, default: 0},
 	createdAt: {type: Date, default: Date.now},
     modifiedAt: {type: Date, default: null}
 })
@@ -33,7 +32,14 @@ module.exports = {
     },
 
     getAll: (callback) => {
-      teamModel.find({}, function(err, teams) {
+      teamModel.aggregate({
+		  $lookup: {
+			  from: "users",
+			  localField: "_id",
+			  foreignField: "team",
+			  as: "users"
+		  }
+	  }, function(err, teams) {
           if(!err){callback(teams)}
           else{throw err}
       })
@@ -47,16 +53,16 @@ module.exports = {
     },
 
     //Ajoute un membre à cette équipe
-    addMember: (pseudo, name) => {
-		User.getOne(pseudo, function(user){
-			user.team = body.team
-			nb_of_members += 1
-            user.save(function (err) {
-                if (err) throw(err)
-                callback()
-    		})
-		})
-	},
+    // addMember: (pseudo, name) => {
+	// 	User.getOne(pseudo, function(user){
+	// 		user.team = body.team
+	// 		nb_of_members += 1
+    //         user.save(function (err) {
+    //             if (err) throw(err)
+    //             callback()
+    // 		})
+	// 	})
+	// },
 
     //Créer une nouvelle équipe et l'insert dans la base MongoDB
     insert: (body, callback) => {

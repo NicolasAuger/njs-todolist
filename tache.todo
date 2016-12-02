@@ -51,7 +51,7 @@ Todos:
 
 ___________________________________________________________
 Team:
-    ☐ A user can be in a team or not
+    ✔ A user can be in a team or not @done(2016-12-02 18:20) @project(Team)
     ☐ A user has an option "See team's todos"
     ☐ Todos can be given to an other user from the same team
     ☐ Todos can be completed by every user of the team

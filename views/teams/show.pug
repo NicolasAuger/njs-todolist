@@ -16,10 +16,16 @@ block content
       td= team.slogan
     tr
       th Nombre de membres
-      td= nbr != null ? nbr : "Cette team ne possède encore aucun membre !"
+      td= nbr || "Cette team ne possède encore aucun membre !"
     tr
       th Liste des membres
-      td= members != null ? members : "Cette team ne possède encore aucun membre !"
+      td
+        if members.length < 1
+          | Cette team ne possède encore aucun membres !
+        each user in members
+            p #{user.pseudo}
+
+    //-   td= members != null ? members : "Cette team ne possède encore aucun membre !"
     tr
       th Créée :
       td #{moment(team.createdAt).fromNow()}

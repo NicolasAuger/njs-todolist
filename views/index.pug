@@ -9,9 +9,12 @@ block content
   h1= title
   p Bienvenue sur le dashboard du projet, #{userPseudo}
   br
+  a(href="/"+userId+"/infos")
+    button(id="button_style")
+     span Voir mes infos personnelles
   br
   p Accès à la liste complète des utilisateurs :
-  a(href="/users/")
+  a(href="/"+userId+"/users")
     button(id="button_style")
       span Voir la liste des utilisateurs
 
@@ -20,7 +23,10 @@ block content
     button(id="button_style")
      span Voir la liste de mes tâches
 
-  p Accès à la liste complète des teams:
-  a(href="/"+userId+"/todos")
+  p Accès à la liste complète des teams:  (pour information, vous faites déjà parti de la team : #{userTeam})
+  a(href="/"+userId+"/teams")
     button(id="button_style")
      span Voir la liste des teams
+  a(href="/"+userId+"/teams")
+    button(id="button_style")
+    span Rejoindre une team

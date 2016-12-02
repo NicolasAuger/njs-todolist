@@ -19,6 +19,7 @@ block content
       input(name="lastname" placeholder="* Nom")
 
       select(name="team")
+          option(value="none", selected) Aucune
           each team, i in teams
               option(value=team._id) Team : #{team.name}
 
