@@ -4,19 +4,14 @@ block content
   h1= title
   br
   br
-  if (error)
-  p= error
   form(
     method="post"
     action=action
+    id="create_form"
   )
-    label
-      strong Nom
-      input(name="name" value=team.name placeholder="Nom de votre team")
+    h2 Création d'une nouvelle team
+    input(name="name" value=team.name placeholder="* Nom de votre team")
 
-    label
-      strong Slogan
-      input(name="slogan" value=team.slogan placeholder="Slogan de votre team")
+    input(name="slogan" value=team.slogan placeholder="* Slogan de votre team")
 
-    label
-      input(type="submit" value="Envoyer")
+    input(type="submit" value="Envoyer" id="create_form_submit")

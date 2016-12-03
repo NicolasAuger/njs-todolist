@@ -7,7 +7,8 @@ html
     block content
 block content
   h1= title
-  p Bienvenue sur le dashboard du projet, #{userPseudo}
+  p Bienvenue sur votre dashboard personnel de projet, &nbsp;
+    span(style="color: #c54848;") #{userPseudo}
   br
   a(href="/"+userId+"/infos")
     button(id="button_style")
@@ -23,10 +24,21 @@ block content
     button(id="button_style")
      span Voir la liste de mes tâches
 
-  p Accès à la liste complète des teams:  (pour information, vous faites déjà parti de la team : #{userTeam})
-  a(href="/"+userId+"/teams")
-    button(id="button_style")
-     span Voir la liste des teams
-  a(href="/"+userId+"/teams")
-    button(id="button_style")
-    span Rejoindre une team
+  p Accès à la liste complète des teams:
+  if userTeam == null
+    | Vous n'appartenez encore à aucune team !
+    a(href="/"+userId+"/teams")
+      button(id="button_style")
+       span Voir la liste des teams
+    a(href="/"+userId+"/teams")
+      button(id="button_style")
+        span Rejoindre une team
+  else
+    | &nbsp; Pour information, vous faites déjà parti de la team : &nbsp;
+    span(style="color:#c54848;") #{userTeam.name}
+    a(href="/"+userId+"/teams")
+      button(id="button_style")
+       span Voir la liste des teams
+    a(href="/"+userId+"/leave_team")
+      button(id="button_style")
+        span Quitter ma team

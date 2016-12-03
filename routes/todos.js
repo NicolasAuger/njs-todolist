@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Todo = require('../models/todos.js')
+const User = require('../models/users.js')
 
 /* Todos : liste */
 router.get('/', function(req, res, next) {
@@ -26,19 +27,23 @@ router.post('/add', function(req, res){ // Route post pour ajout d'une todo
 
 
 router.get('/add', function(req, res, next) {
-  res.format({
-    html: () => {
-      res.render('todos/add', {
-        todo: {},
-        action: '/todos'
-      })
-    },
-    json: () => {
-      let error = new Error('Bad Request')
-      error.status = 400
-      next(error)
-    }
-  })
+	User.getAll(function(users){
+		res.format({
+	      html: () => {
+	        res.render('todos/add', {
+	          todo: {},
+			  title: "TP Njs-TodoList - NodeJs / NoSQL",
+	          action: '/todos',
+			  users: users
+	        })
+	      },
+	      json: () => {
+	        let error = new Error('Bad Request')
+	        error.status = 400
+	        next(error)
+	      }
+	    })
+	})
 })
 
 router.get('/:id/edit', function(req, res, next) {

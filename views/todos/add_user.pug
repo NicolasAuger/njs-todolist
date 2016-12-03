@@ -7,22 +7,18 @@ block content
   form(
     method="post"
     action="/"+userId+"/todos/add"
+    id="create_form"
   )
-    label
-      strong Auteur
-      input(name="author" value=userPseudo)
+      h2 Création d'une nouvelle tâche
+      span(id="choix_team") * Auteur :
+      select(name="author")
+          option(value=todo.author) #{userPseudo}
 
-    label
-      strong Tâche
-      input(name="task" value=todo.task)
+      input(name="task" placeholder="* Tâche" value=todo.task)
 
-    label
-      strong Destinataire
-      input(name="recipient" value=todo.recipient)
+      span(id="choix_team") * Destinataire :
+      select(name="recipient")
+          each user, i in users
+              option(value=todo.recipient) #{user.pseudo}
 
-    //- label
-    //-   strong Team
-    //-   input(name="" value=user.email)
-
-    label
-      input(type="submit" value="Envoyer")
+      input(type="submit" value="Envoyer" id="create_form_submit")
