@@ -34,7 +34,6 @@ router.get('/add', function(req, res, next) {
         team: {},
         action: '/teams',
 		title: "TP Njs-TodoList - NodeJs / NoSQL",
-		error: "Erreur: Veuillez remplir tous les champs"
       })
     },
     json: () => {

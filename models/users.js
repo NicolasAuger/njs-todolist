@@ -32,7 +32,7 @@ module.exports = {
     userModel.find({"_id": id}).populate("team", "name").exec(function(err, user) {
         if(!err){callback(user[0])}
         else{throw err}
-    }) 
+    })
   },
 
   getUsersInTeam: (teamId, callback) => {
@@ -122,5 +122,14 @@ module.exports = {
 		});
 	},
 
+    leaveTeam: (id, callback) => {
+        userModel.findById(id, function(err, user){
+            user.team = null
+            user.save(function(err) {
+                if (err) throw(err)
+                callback()
+            })
+        })
+    },
 
 }

@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+    h1= title
+    form(
+      method="post"
+      action="/"+userId+"/leave_team"
+    )
+        p Vous êtes sur le point de quitter votre team.
+        p Êtes-vous sûr de vouloir continuer ?
+        br
+        label
+          input(type="submit" value="Oui" name="complete")
+    a(href="/"+userId+"/dashboard")
+      button Non

@@ -70,7 +70,7 @@ router.post('/signup', function(req, res){
 })
 
 router.get("/:id/dashboard", function(req, res){
-    User.getAllForOne(req.params.id, function(user){
+    User.getAllForOne(req.session.user._id, function(user){
         if(!req.session.user){
             console.log("Session d'user non créée");
             res.render('login', {
@@ -78,18 +78,16 @@ router.get("/:id/dashboard", function(req, res){
             return res.status(401).send()
         }else{
             res.render('index', {
-                title: 'TP Njs-TodoList - NodeJs / NoSQL', userId: user._id, userPseudo: user.pseudo , userTeam: user.team.name })
-            // return res.status(200).send("Bienvenue sur ton dashboard privé")
+                title: 'TP Njs-TodoList - NodeJs / NoSQL', userId: user._id, userPseudo: user.pseudo , userTeam: user.team })
         }
     })
 
 })
 
-// #######################################   Gérer les todos depuis l'interface d'un user connecté
+// #######################################   Gérer les todos depuis l'interface d'un user connecté ##############################################
 router.get('/:id/todos', function(req, res, next){
     var pseudo = req.session.user.pseudo
     Todo.getAll(function(todos){
-        console.log(pseudo);
 		var data = {todos: todos, title: "TP Njs-TodoList - NodeJs / NoSQL", moment: require('moment'), userPseudo: req.session.user.pseudo, userId: req.session.user._id}
 		res.format({
 	      html: () => { res.render('todos/index_user', data) },
@@ -108,6 +106,22 @@ router.get('/:id/teams', function(req, res, next){
 	      json: () => { res.status(201).send({data: data}) }
 	    })
 	})
+})
+
+router.get('/:id/leave_team', function(req, res, next){
+    var data = {title :"TP Njs-TodoList - NodeJs / NoSQL", userId: req.session.user._id }
+    res.format({
+      html: () => { res.render('teams/leave', data) },
+      json: () => { res.status(201).send({data: data}) }
+    })
+})
+
+router.post('/:id/leave_team', function(req, res, next){
+    var id = req.session.user._id
+    User.leaveTeam(id, function(user){
+        console.log(user);
+        res.redirect('/:id/dashboard')
+    })
 })
 
 router.get('/:id/users', function(req, res, next){
@@ -136,21 +150,33 @@ router.get('/:id/infos', (req, res, next) => {
 
 
 router.get('/:id/todos/add', function(req, res, next) {
-  res.format({
-    html: () => {
-      res.render('todos/add_user', {
-        todo: {},
-        userId: req.session.user._id,
-        userPseudo: req.session.user.pseudo
-      })
-    },
-    json: () => {
-      let error = new Error('Bad Request')
-      error.status = 400
-      next(error)
-    }
-  })
+    User.getAll(function(users){
+		res.format({
+	      html: () => {
+	        res.render('todos/add_user', {
+              title: "TP Njs-TodoList - NodeJs / NoSQL",
+	          todo: {},
+	          action: '/todos',
+              users: users,
+              userId: req.session.user._id,
+              userPseudo: req.session.user.pseudo
+	        })
+	      },
+	      json: () => {
+	        let error = new Error('Bad Request')
+	        error.status = 400
+	        next(error)
+	      }
+	    })
+	})
 })
+
+router.post('/:id/todos/add', function(req, res){ // Route post pour ajout d'une todo
+    Todo.insert(req.body, function(todos){
+        res.redirect('/:id/todos')
+    })
+})
+
 
 router.get('/:id/todos/:id', (req, res, next) => {
 	var id = req.params.id
