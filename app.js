@@ -41,7 +41,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser());
 
 //Middleware pour utiliser les sessions
-app.use(session({secret:"secretStringForTodolistProjet"}));
+app.use(session({
+    secret:"secretStringForTodolistProjet",
+    resave: false,
+    saveUninitialized: true
+}));
 
 // Préprocesseur sur les fichiers scss -> css
 app.use(sass({
