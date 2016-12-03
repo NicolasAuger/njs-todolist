@@ -43,6 +43,8 @@ form#create_form { box-sizing: border-box; width: 500px; background:rgba(255, 25
 input#create_form_submit { border: none; background: $color; cursor: pointer; border-radius: 3px; padding: 6px; width: 200px; color: white; margin-left: 140px; box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2); &:hover { transform: translateY(-3px); box-shadow: 0 6px 6px 0 rgba(0,0,0,0.2); } }
 button#button_style_create { border: none; background: $color; cursor: pointer; border-radius: 3px; padding: 6px; width: 350px; color: white; margin-left: 220px; box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2); &:hover { transform: translateY(-3px); box-shadow: 0 6px 6px 0 rgba(0,0,0,0.2); } }
 div#create_form_pass {float:left;}
+span#choix_team { padding: 10px; margin-left: 15px; font-size: 12px; color: #c54848;}
+select { padding:5px; margin: 0; border-radius:4px; box-shadow: 0 3px 0 #921515, 0 -1px #921515 inset; background: #c54848; color:white; border:none; outline:none; display: inline-block; appearance:none; cursor:pointer; }
 
 //clear
 div#clear {clear:both;}

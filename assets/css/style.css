@@ -319,6 +319,27 @@ div#create_form_pass {
   float: left;
 }
 
+span#choix_team {
+  padding: 10px;
+  margin-left: 15px;
+  font-size: 12px;
+  color: #c54848;
+}
+
+select {
+  padding: 5px;
+  margin: 0;
+  border-radius: 4px;
+  box-shadow: 0 3px 0 #921515, 0 -1px #921515 inset;
+  background: #c54848;
+  color: white;
+  border: none;
+  outline: none;
+  display: inline-block;
+  appearance: none;
+  cursor: pointer;
+}
+
 div#clear {
   clear: both;
 }
