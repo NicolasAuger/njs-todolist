@@ -60,10 +60,10 @@ De la, vous pouvez :
 - Modifier vos infos personnelles
 - Quitter votre team (si vous en avez une)
 
-L'utilisateur ne peut voir que ses todos et non celles des autres utilisateurs.
-L'utilisateur peut "voir" sa todo en détail (GET --> /:userId/todos/:todoId) (accessible via le lien en fond vert dans le tableau)
-L'utilisateur ne peut pas modifier les tâches (sinon il pourrait modifier la tâche, son auteur etc..)
-L'utilisateur peut supprimer sa tâche ou la compléter via les boutons situés respectivement à droite et à gauche
+- L'utilisateur ne peut voir que ses todos et non celles des autres utilisateurs.
+- L'utilisateur peut "voir" sa todo en détail (GET --> /:userId/todos/:todoId) (accessible via le lien en fond vert dans le tableau)
+- L'utilisateur ne peut pas modifier les tâches (sinon il pourrait modifier la tâche, son auteur etc..)
+- L'utilisateur peut supprimer sa tâche ou la compléter via les boutons situés respectivement à droite et à gauche
 
 
 ###Todos
@@ -77,9 +77,9 @@ Si la tâche n'est pas encore modifiée ou pas encore complétée, il y est écr
 
 ###teams
 Il est possible de créer une team (vue admin) accessible via **localhost:8080/index**
-Un utilisateur peut rejoindre une team lors de la création de son compte
-Un utilistauer peut rejoindre une team n'importe quand depuis son dashboard (s'il n'en a pas déjà une)
-Un utilisateur peut quitter sa team n'importe quand (s'il en a une)
-Un utilisateur peut voir les informations de n'importe quelle team (son nom, son slogan, son nombre de membres et la liste de tous les membres)
-Un utilisateur ne peut ni modifier, ni supprimer aucune team.
-Un admin peut modifier et supprimer n'importe quelle team (accessible via **localhost:8080/teams**)
+- Un utilisateur peut rejoindre une team lors de la création de son compte
+- Un utilistauer peut rejoindre une team n'importe quand depuis son dashboard (s'il n'en a pas déjà une)
+- Un utilisateur peut quitter sa team n'importe quand (s'il en a une)
+- Un utilisateur peut voir les informations de n'importe quelle team (son nom, son slogan, son nombre de membres et la liste de tous les membres)
+- Un utilisateur ne peut ni modifier, ni supprimer aucune team.
+- Un admin peut modifier et supprimer n'importe quelle team (accessible via **localhost:8080/teams**)
