@@ -5,7 +5,7 @@ const Todo = require('../models/todos.js')
 const Team = require('../models/teams.js')
 moment.locale('fr')
 
-/* Users : liste */
+// Route GET pour avoir la liste des utilisateurs
 router.get('/', function(req, res, next) {
 	User.getAll(function(users){
 		var data = {users: users, title: "TP Njs-TodoList - NodeJs / NoSQL", moment: require('moment')}
@@ -16,49 +16,14 @@ router.get('/', function(req, res, next) {
 	})
 })
 
-router.post('/', function(req, res, next){
-	User.insert(req.body, function(users){
-		res.redirect('/users')
-	})
-})
-
-router.post('/add', function(req, res){
-	Team.getAll(function(teams){
-		res.render('users/add', {
-			title: "TP Njs-TodoList - NodeJs / NoSQL",
-			user: {},
-	        action: '/users',
-			teams: teams
-		})
-	})
-})
-
-router.get('/add', function(req, res, next) {
-  Team.getAll(function(teams){
-	  res.format({
-		html: () => {
-		  res.render('users/add', {
-			user: {},
-			action: '/users',
-		    teams: teams
-		  })
-		},
-		json: () => {
-		  let error = new Error('Bad Request')
-		  error.status = 400
-		  next(error)
-		}
-	  })
-  })
-})
-
-
+// Route GET pour éditer un utilisateur en fonction de son ID
 router.get('/:id/edit', function(req, res, next) {
   User.get(req.params.id, function(user) {
 	Team.getAll(function(teams){
 	    res.format({
 	      html: () => {
 	        res.render('users/edit', {
+			  title: "TP Njs-TodoList - NodeJs / NoSQL",
 	          user: user,
 			  teams: teams
 	        })
@@ -73,6 +38,7 @@ router.get('/:id/edit', function(req, res, next) {
   })
 })
 
+// Route GET pour voir les infos d'un user en fonction de son ID
 router.get('/:id', (req, res, next) => {
 	var id = req.params.id
 	User.getAllForOne(id, function(user){
@@ -84,6 +50,7 @@ router.get('/:id', (req, res, next) => {
 	})
 })
 
+// Route POST modification user
 router.post('/:id/edit', (req, res) => {
 	var id = req.params.id
 	var body = req.body
@@ -92,6 +59,7 @@ router.post('/:id/edit', (req, res) => {
 	})
 })
 
+// Route DELETE pour supprimer un user
 router.delete('/:id', (req, res, next) => {
 	var id = req.params.id
     User.remove(id, function(){

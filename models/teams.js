@@ -16,7 +16,7 @@ module.exports = {
     // La liste des membres ne sera pas stockée dans la table "teams" dans MongoDB.
     // C'est à partir de la table "users" que nous allons les récupérer.
 
-    //Method GET pour récupérer les infos d'une team, en fonction de son ID
+    //Method GET pour récupérer les infos d'une team par son ID
     get: (id, callback) => {
         teamModel.find({"_id": id}, function(err, team) {
             if(!err){callback(team[0])}
@@ -24,13 +24,7 @@ module.exports = {
         })
       },
 
-    //Method GET pour récupérer la liste des utilisateurs dans une certaine team
-    getTeamMembers: (name, callback) => {
-      User.getInTeam(name, function(users){
-          callback(users)
-      })
-    },
-
+// Méthode pour récuperer toutes les teams
     getAll: (callback) => {
       teamModel.aggregate({
 		  $lookup: {
@@ -45,24 +39,13 @@ module.exports = {
       })
     },
 
+// Methode pour compter le nombre d'utilisateur dans chaque team
     count: (body, callback) =>{
         teamModel.find({}, function(err, teams){
             if(!err){callback(teams)}
             else{throw err}
         }).count()
     },
-
-    //Ajoute un membre à cette équipe
-    // addMember: (pseudo, name) => {
-	// 	User.getOne(pseudo, function(user){
-	// 		user.team = body.team
-	// 		nb_of_members += 1
-    //         user.save(function (err) {
-    //             if (err) throw(err)
-    //             callback()
-    // 		})
-	// 	})
-	// },
 
     //Créer une nouvelle équipe et l'insert dans la base MongoDB
     insert: (body, callback) => {
@@ -75,20 +58,7 @@ module.exports = {
         });
     },
 
-    //Fait quitter l'utilisateur de son équipe
-    quit: (pseudo) => {
-        User.getOne(pseudo, function (err, user) {
-            var text = "N'a pas de rejoint de team"
-            if (err) throw(err)
-            user.team = text
-            user.save(function (err) {
-                if (err) throw(err)
-                callback()
-            })
-        })
-    },
-
-    //Update l'équipe
+    // Méthode pour modifier une team
     update: (id, body, callback) => {
   		teamModel.findById(id, function (err, team) {
   			if (err) throw(err)
@@ -102,7 +72,7 @@ module.exports = {
   		})
   	},
 
-  //Supprime l'équipe selectionnée
+  // Méthode pour Supprimer l'équipe selectionnée
   remove: (id ,callback) => {
 		teamModel.remove({ "_id": id }, function(err) {
 			if (!err) {callback('success')}

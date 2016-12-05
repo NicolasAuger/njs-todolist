@@ -21,6 +21,7 @@ var userModel = mongoose.model('users', userSchema)
 
 module.exports = {
 
+// Methode pour récupérer un user par son ID
   get: (id, callback) => {
     userModel.find({"_id": id}, function(err, user) {
         if(!err){callback(user[0])}
@@ -28,6 +29,7 @@ module.exports = {
     })
   },
 
+// Methode pour récupérer la team d'un user
   getAllForOne: (id, callback) => {
     userModel.find({"_id": id}).populate("team", "name").exec(function(err, user) {
         if(!err){callback(user[0])}
@@ -35,6 +37,7 @@ module.exports = {
     })
   },
 
+// Methode pour récupérer tous les users d'une même team
   getUsersInTeam: (teamId, callback) => {
     userModel.find({"team": teamId}, function(err, users) {
         if(!err){callback(users)}
@@ -42,6 +45,7 @@ module.exports = {
     }).count()
   },
 
+// Méthode pour récupéerer un user par son pseudo
   getOne: (pseudo, callback) => {
     userModel.find({"pseudo": pseudo}, function(err, user) {
         if(!err){callback(user[0])}
@@ -49,14 +53,7 @@ module.exports = {
     })
   },
 
-  getInTeam: (team, callback) => {
-    userModel.find({"team": team}, function(err, users){
-        if(!err){callback(users)}
-        else{throw err}
-    })
-  },
-
-
+// Récuperer tous les users et leur team
   getAll: (callback) => {
     userModel.find({}).populate("team", "name").exec(function(err, users) {
         if(!err){callback(users)}
@@ -65,7 +62,7 @@ module.exports = {
   },
 
 
-
+// Methode pour créer un utilisateur et l'insérer dans la base MongoDB
   insert: (body, callback) => {
         var newUser = new userModel()
 
@@ -75,17 +72,17 @@ module.exports = {
         newUser.email = body.email
         newUser.team = body.team != "none" ? body.team : null
 
-		if (body.password1 == body.password2){
+		if (body.password1 == body.password2){ // Vérification si les deux mdp correspondent
 			newUser.password = body.password1
             var salt = bcrypt.genSaltSync(saltRounds);
-            var pass_hash = bcrypt.hashSync(newUser.password, salt);
+            var pass_hash = bcrypt.hashSync(newUser.password, salt); // On hash le password
             newUser.password = pass_hash
-            if(bcrypt.compareSync(body.password1, pass_hash)){
+            if(bcrypt.compareSync(body.password1, pass_hash)){ // Si les deux correspondent bien on log que c'est un succès
                 console.log("Password hashé et crypté avec succes ! ")
             }else{
                 console.log("Erreur : Le hash du password n'a pas fonctionné !")
             }
-            newUser.save(function(err) {
+            newUser.save(function(err) { // On enregistre l'user dans la base MongoDB
                 if (err){console.log(err)}
                 else{callback()}
 			})
@@ -95,7 +92,7 @@ module.exports = {
         }
     },
 
-
+// methode pour modifier l'utilisateur et insérer les modifications dans la base MongoDB
     update: (id, body, callback) => {
 
   		userModel.findById(id, function (err, user) {
@@ -115,6 +112,7 @@ module.exports = {
   		})
   	},
 
+// methode pour supprimer un utilisateur
   remove: (id ,callback) => {
 		userModel.remove({ "_id": id }, function(err) {
 			if (!err) {callback('success')}
@@ -122,6 +120,7 @@ module.exports = {
 		});
 	},
 
+// methode pour que l'utilisateur quitte sa team
     leaveTeam: (id, callback) => {
         userModel.findById(id, function(err, user){
             user.team = null
@@ -131,5 +130,4 @@ module.exports = {
             })
         })
     },
-
 }

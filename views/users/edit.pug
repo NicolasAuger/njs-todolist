@@ -7,30 +7,20 @@ block content
   form(
     method="post"
     action=action
+    id="create_form"
   )
-    label
-      strong Pseudo
+      h2 Modification de l'utilisateur : #{user.pseudo}
       input(name="pseudo" value=user.pseudo)
 
-    label
-      strong Prénom
       input(name="firstname" value=user.firstname)
 
-    label
-      strong Nom
       input(name="lastname" value=user.lastname)
 
-    label
-      strong Email
       input(name="email" value=user.email)
 
-    label
-      strong Team
       select(name="team")
-        option(value="none", selected=(!!user.team)) Aucune
-        each team, i in teams
-          option(value=team._id, selected=(user.team && user.team.toString() == team._id.toString())) Team : #{team.name}
+          option(value="none", selected=(!!user.team)) Aucune
+          each team, i in teams
+              option(value=team._id, selected=(user.team && user.team.toString() == team._id.toString())) Team : #{team.name}
 
-
-    label
-      input(type="submit" value="Modifier")
+      input(type="submit" id="create_form_submit" value="Modifier")

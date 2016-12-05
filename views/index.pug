@@ -4,7 +4,6 @@ html
     title= title
     link(rel='stylesheet', href='/css/style.css')
   body
-    block content
 block content
   h1= title
   p Bienvenue sur votre dashboard personnel de projet, &nbsp;
@@ -13,6 +12,9 @@ block content
   a(href="/"+userId+"/infos")
     button(id="button_style")
      span Voir mes infos personnelles
+  a(href="/"+userId+"/edit")
+    button(id="button_style")
+      span Modifier mes infos
   br
   p Accès à la liste complète des utilisateurs :
   a(href="/"+userId+"/users")
@@ -25,12 +27,12 @@ block content
      span Voir la liste de mes tâches
 
   p Accès à la liste complète des teams:
-  if userTeam == null
+  if userTeam == null                               
     | Vous n'appartenez encore à aucune team !
     a(href="/"+userId+"/teams")
       button(id="button_style")
        span Voir la liste des teams
-    a(href="/"+userId+"/teams")
+    a(href="/"+userId+"/edit")
       button(id="button_style")
         span Rejoindre une team
   else

@@ -4,7 +4,7 @@ const moment = require('moment')
 const Team = require('../models/teams.js')
 moment.locale('fr')
 
-/* Teams : liste */
+// Route GET pour afficher toutes les teams
 router.get('/', function(req, res, next) {
 	Team.getAll(function(teams){
 		var data = {teams: teams, title: "TP Njs-TodoList - NodeJs / NoSQL", moment: require('moment'), error:"One or more fields are empty"}
@@ -15,11 +15,13 @@ router.get('/', function(req, res, next) {
 	})
 })
 
+// Route POST pour ajouter une nouvelle team (vue Admin)
 router.post('/', function(req, res, next){
     Team.insert(req.body, function(teams){
 		res.redirect('/teams')
 	})
 })
+
 
 router.post('/add', function(req, res){
 	res.render('teams/add', {
@@ -27,6 +29,7 @@ router.post('/add', function(req, res){
 	})
 })
 
+//Route GET pour ajouter une team (vue Admin)
 router.get('/add', function(req, res, next) {
   res.format({
     html: () => {
@@ -44,13 +47,14 @@ router.get('/add', function(req, res, next) {
   })
 })
 
-
+//Route GET Modification de team (vue Admin)
 router.get('/:id/edit', function(req, res, next) {
-  Team.get(req.params.id, function(user) {
+  Team.get(req.params.id, function(team) {
     res.format({
       html: () => {
         res.render('teams/edit', {
-          user: user,
+			title:"TP Njs-TodoList - NodeJs / NoSQL",
+            team: team,
         })
       },
       json: () => {
@@ -62,6 +66,7 @@ router.get('/:id/edit', function(req, res, next) {
   })
 })
 
+//Route GET Voir les infos d'une team (vue Admin)
 router.get('/:id', (req, res, next) => {
 	var id = req.params.id
     var body = req.body
@@ -76,6 +81,7 @@ router.get('/:id', (req, res, next) => {
 	})
 })
 
+// Route POST Modifcation d'une team (vue Admin)
 router.post('/:id/edit', (req, res) => {
 	var id = req.params.id
 	var body = req.body
@@ -84,6 +90,7 @@ router.post('/:id/edit', (req, res) => {
 	})
 })
 
+//Route DELETE Supprimer une team (vue Admin)
 router.delete('/:id', (req, res, next) => {
 	var id = req.params.id
     Team.remove(id, function(){

@@ -2,7 +2,7 @@ const router = require('express').Router()
 const Todo = require('../models/todos.js')
 const User = require('../models/users.js')
 
-/* Todos : liste */
+// Route GET pour voir la liste des tâches de tout le monde (vue Admin)
 router.get('/', function(req, res, next) {
 	Todo.getAll(function(todos){
 		var data = {todos: todos, title: "TP Njs-TodoList - NodeJs / NoSQL", moment: require('moment')}
@@ -13,19 +13,21 @@ router.get('/', function(req, res, next) {
 	})
 })
 
+// Route POST pour insérer une nouvelle tâche (vue Admin)
 router.post('/', function(req, res, next){
 	Todo.insert(req.body, function(todos){
 		res.redirect('/todos')
 	})
 })
 
-router.post('/add', function(req, res){ // Route post pour ajout d'une todo
+
+router.post('/add', function(req, res){
 	res.render('todos/add', {
 		title: "TP Njs-TodoList - NodeJs / NoSQL"
 	})
 })
 
-
+// Route GET pour ajouter une nouvelle tâche (vue Admin)
 router.get('/add', function(req, res, next) {
 	User.getAll(function(users){
 		res.format({
@@ -46,6 +48,7 @@ router.get('/add', function(req, res, next) {
 	})
 })
 
+// Route GET modification de tâche (vue Admin)
 router.get('/:id/edit', function(req, res, next) {
   Todo.get(req.params.id, function(todo) {
 
@@ -65,6 +68,7 @@ router.get('/:id/edit', function(req, res, next) {
   })
 })
 
+// Route GET Show tâche (vue Admin)
 router.get('/:id', (req, res, next) => {
 	var id = req.params.id
 	Todo.get(id, function(todo){
@@ -76,15 +80,16 @@ router.get('/:id', (req, res, next) => {
 	})
 })
 
+//Route POST modification de tâche (vue Admin)
 router.post('/:id/edit', (req, res) => {
 	var id = req.params.id
 	var body = req.body
 	Todo.update(id,body, () => {
-		//console.log(body.pseudo);
 		res.redirect('/todos')
 	})
 })
 
+// ROute DELETE supprimier une tâche (vue Admin)
 router.delete('/:id', (req, res, next) => {
 	var id = req.params.id
     Todo.remove(id, function(){
@@ -92,7 +97,7 @@ router.delete('/:id', (req, res, next) => {
     })
 })
 
-
+// Route GET COmpleter une tâche (vue Admin)
 router.get('/:id/complete', (req, res, next) => {
 	var id = req.params.id
 	Todo.get(id, function(todo){
@@ -104,9 +109,9 @@ router.get('/:id/complete', (req, res, next) => {
 	})
 })
 
+//Routz POST pour completer une tâche (vue Admin)
 router.post('/:id/complete', (req, res, next) => {
 	verif = req.body.complete
-	//console.log(verif);
 	switch (verif) {
 		case "Oui":
 			Todo.complete(req.params.id, function(todo){

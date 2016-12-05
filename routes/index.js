@@ -4,22 +4,22 @@ const Todo = require('../models/todos.js')
 const Team = require('../models/teams.js')
 var session = require('express-session')
 var bcrypt = require('bcrypt')
-/* Page d'accueil */
 
+// Route GET Redirige vers la page d'accueil
 router.get('/',function(req, res, next){
     res.redirect('/index')
 })
 
-router.get('/index', function(req, res, next) { //Affiche le formulaire de logIn
+// Route GET Page d'accueil , Affiche form de login
+router.get('/index', function(req, res, next) {
   res.render('login', {
       title: 'TP Njs-TodoList - NodeJs / NoSQL' })
 })
 
+// Route POST Connexion avec form
 router.post('/index', function(req, res) {
     var pseudo = req.body.pseudo
-
     User.getOne(pseudo, function(user){
-
         if (!user){
             console.log("Oups, cet utilisateur n'existe pas");
             res.render('login',{
@@ -34,10 +34,9 @@ router.post('/index', function(req, res) {
             res.redirect('/index')
         }
     })
-
 })
 
-
+// Route GET pour créer un compte
 router.get('/signup', function(req, res, next){
     Team.getAll(function(teams){
         res.format({
@@ -57,6 +56,7 @@ router.get('/signup', function(req, res, next){
 	})
 })
 
+// Route POST pour créer un compte
 router.post('/signup', function(req, res){
     var body = req.body
     if (!body.pseudo || !body.firstname || !body.lastname || !body.email || !body.password1 || !body.password2){
@@ -69,6 +69,7 @@ router.post('/signup', function(req, res){
     }
 })
 
+//Route GET Affiche Dashboard personnel de l'utilisateur connecté
 router.get("/:id/dashboard", function(req, res){
     User.getAllForOne(req.session.user._id, function(user){
         if(!req.session.user){
@@ -84,7 +85,9 @@ router.get("/:id/dashboard", function(req, res){
 
 })
 
-// #######################################   Gérer les todos depuis l'interface d'un user connecté ##############################################
+// #######################################  Les routes suivantes sont accessible depuis une session d'user connecté ##############################################
+
+// Route GET Afficher les tâches de l'utilisateur (vue User)
 router.get('/:id/todos', function(req, res, next){
     var pseudo = req.session.user.pseudo
     Todo.getAll(function(todos){
@@ -96,7 +99,7 @@ router.get('/:id/todos', function(req, res, next){
 	})
 })
 
-
+// Route GET Affiche toutes les teams (vue User : ne peut ni éditer ni supprimer les teams)
 router.get('/:id/teams', function(req, res, next){
     var pseudo = req.session.user.pseudo
     Team.getAll(function(teams){
@@ -108,6 +111,7 @@ router.get('/:id/teams', function(req, res, next){
 	})
 })
 
+// Route GET l'Utilisateur quitte sa team
 router.get('/:id/leave_team', function(req, res, next){
     var data = {title :"TP Njs-TodoList - NodeJs / NoSQL", userId: req.session.user._id }
     res.format({
@@ -116,14 +120,16 @@ router.get('/:id/leave_team', function(req, res, next){
     })
 })
 
+// Route POST l'utilisateur quitte sa team
 router.post('/:id/leave_team', function(req, res, next){
     var id = req.session.user._id
     User.leaveTeam(id, function(user){
         console.log(user);
-        res.redirect('/:id/dashboard')
+        res.redirect('/'+id+'/dashboard')
     })
 })
 
+// Route GET Affiche tous les users (vue User : ne peut ni éditer ni supprimer les autres users)
 router.get('/:id/users', function(req, res, next){
     var pseudo = req.session.user.pseudo
     User.getAll(function(users){
@@ -135,7 +141,38 @@ router.get('/:id/users', function(req, res, next){
 	})
 })
 
+// Route GET Modification des infos de son compte (permet également de rejoindre une team)
+router.get('/:id/edit', function(req, res, next){
+    User.get(req.session.user._id, function(user) {
+        Team.getAll(function(teams){
+            res.format({
+                html: () => {
+                    res.render('users/edit', {
+                        title: "TP Njs-TodoList - NodeJs / NoSQL",
+                        user: user,
+                        teams: teams
+                    })
+                },
+                json: () => {
+                    let error = new Error('Bad Request')
+                    error.status = 400
+                    next(error)
+                }
+            })
+        })
+    })
+})
 
+// Route POST Modification des infos de son compte (permet également de rejoindre une team)
+router.post('/:id/edit', (req, res) => {
+    var id = req.params.id
+    var body = req.body
+    User.update(id,body, () => {
+        res.redirect('/'+id+'/dashboard')
+    })
+})
+
+// Route GET Affiche les infos du compte
 router.get('/:id/infos', (req, res, next) => {
 	var id = req.params.id
     console.log(req);
@@ -148,7 +185,7 @@ router.get('/:id/infos', (req, res, next) => {
 	})
 })
 
-
+// Route GET Créer une nouvelle tâche
 router.get('/:id/todos/add', function(req, res, next) {
     User.getAll(function(users){
 		res.format({
@@ -171,13 +208,15 @@ router.get('/:id/todos/add', function(req, res, next) {
 	})
 })
 
-router.post('/:id/todos/add', function(req, res){ // Route post pour ajout d'une todo
+// Route POST Ajouter une nouvelle tâche
+router.post('/:id/todos/add', function(req, res){
+    var id = req.session.user._id
     Todo.insert(req.body, function(todos){
-        res.redirect('/:id/todos')
+        res.redirect('/'+id+'/todos')
     })
 })
 
-
+// Route GET pour voir les infos d'une tâche du compte connecté
 router.get('/:id/todos/:id', (req, res, next) => {
 	var id = req.params.id
 	Todo.get(id, function(todo){
@@ -189,6 +228,7 @@ router.get('/:id/todos/:id', (req, res, next) => {
 	})
 })
 
+// Router DELETE Supprime la tâche selectionné du compte connecté
 router.delete('/:id/todos/:id', (req, res, next) => {
 	var id = req.params.id
     Todo.remove(id, function(){
@@ -196,7 +236,7 @@ router.delete('/:id/todos/:id', (req, res, next) => {
     })
 })
 
-
+// Route GET Complète la tâche selectionnée (compte user)
 router.get('/:id/todos/:id/complete', (req, res, next) => {
 	var id = req.params.id
 	Todo.get(id, function(todo){
@@ -208,6 +248,7 @@ router.get('/:id/todos/:id/complete', (req, res, next) => {
 	})
 })
 
+// Route POST pour compléter une tâche du compte connecté
 router.post('/:id/todos/:id/complete', (req, res, next) => {
 	verif = req.body.complete
 	switch (verif) {

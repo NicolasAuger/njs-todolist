@@ -34,7 +34,7 @@ button#button_style_create { border: none; background: $color; cursor: pointer; 
 form#login_form p {font-size: 15px; padding:15px;}
 
 
-//Formulaire d'inscription sur /signup
+//Formulaire d'inscription sur les autres form
 $color: #c54848;
 form#create_form h2, input#login_form_submit::-webkit-input-placeholder, input#login_form_submit { font-family: 'comic sans ms', sans-serif; transition: all 0.3s ease-in-out; }
 h2 { height: 70px; width: 100%; font-size: 18px; background: darken($color, 4%); color: white; text-align: center; border-radius: 3px 3px 0 0; box-shadow: 0 2px 5px 1px rgba(0,0,0,0.5); }

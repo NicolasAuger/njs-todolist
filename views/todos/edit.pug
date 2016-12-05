@@ -7,22 +7,14 @@ block content
   form(
     method="post"
     action=action
+    id="create_form"
   )
-    label
-      strong Auteur
-      input(name="author" value=todo.author)
+      h2 Modification de tâche
+      | Modifier l'auteur
+      input(name="author" placeholder=todo.author value=todo.author)
+      | Modifier la tâche
+      input(name="task" placeholder=todo.task value=todo.task)
+      | Modifier le destinataire
+      input(name="recipient" placeholder=todo.recipient value=todo.recipient)
 
-    label
-      strong Tâche
-      input(name="task" value=todo.task)
-
-    label
-      strong Destinataire
-      input(name="recipient" value=todo.recipient)
-
-    //- label
-    //-   strong Team
-    //-   input(name="email" value=user.email)
-
-    label
-      input(type="submit" value="Modifier")
+      input(type="submit" id="create_form_submit" value="Modifier")

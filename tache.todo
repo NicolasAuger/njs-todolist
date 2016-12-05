@@ -3,7 +3,7 @@ Deadline:
 
 ___________________________________________________________
 BDD NoSQL:
-    ☐ Token with Redis (Ioredis) @Optional
+    ☐ Token with Redis (Ioredis) @Optional @notdone
     ✔ Database MongoDB (Mongoose) @Needed @done(2016-11-18 16:01) @project(BDD NoSQL)
 
 ___________________________________________________________
@@ -23,19 +23,20 @@ Users:
 
 ___________________________________________________________
 Session:
-    ☐ Create Sessions Table in Database (userId, accessToken, createdAt, expiresAt)
-    ☐ Create REST "/sessions" resssource
-        ☐ GET --> Display user/pass form
-        ☐ POST --> Create accessToken and save it in database
-            ☐ Set a cookie in HTML
-            ☐ Return {accessToken: XXXX} in json
+    ☐ Create Sessions Table in Database (userId, accessToken, createdAt, expiresAt) @notdone
+    ☐ Create REST "/sessions" resssource @notdone
+    ✔ Create a new middleware for authentication @done(2016-12-05 02:57) @project(Session)
 
-        ☐ DELETE --> Delete accessToken
+    ✔ Create Login Form which create a session @done(2016-12-05 02:53) @project(Session)
+    ✔ Dashboard for user session with all his actions @done(2016-12-05 02:55) @project(Session)
+        ✔ See his todos @done(2016-12-05 02:55) @project(Session)
+        ✔ See his personnal infos @done(2016-12-05 02:55) @project(Session)
+        ✔ Update his personnal infos @done(2016-12-05 02:55) @project(Session)
+        ✔ Leave his team @done(2016-12-05 02:55) @project(Session)
+        ✔ Join a team @done(2016-12-05 02:55) @project(Session)
+        ✔ See all users @done(2016-12-05 02:55) @project(Session)
+        ✔ See all team @done(2016-12-05 02:55) @project(Session)
 
-    ☐ Create a new middleware for authentication
-        ☐ HTML --> check AccessToken cookie
-        ☐ JSON --> check X-AccessToken header
-        ☐ No accessToken --> error for JSON, redicrect to authentication html page
 
 ___________________________________________________________
 Todos:
@@ -52,28 +53,32 @@ Todos:
 ___________________________________________________________
 Team:
     ✔ A user can be in a team or not @done(2016-12-02 18:20) @project(Team)
-    ☐ A user has an option "See team's todos"
-    ☐ Todos can be given to an other user from the same team
-    ☐ Todos can be completed by every user of the team
+    ✔ A user can leave his team @done(2016-12-05 02:56) @project(Team)
+    ✔ A user can join a team when he wants @done(2016-12-05 02:56) @project(Team)
+    ☐ A user can see all todos of all the team @notdone
+    ☐ A user can assign his todos to another user of his team @notdone
 
 ___________________________________________________________
 Visuels:
-    ☐ User
+    ✔ User @done(2016-12-05 02:59) @project(Visuels)
     ✔ Users @done(2016-11-24 16:19) @project(Visuels)
     ✔ Todos @done(2016-11-24 16:19) @project(Visuels)
-    ☐ Teams
+    ✔ Teams @done(2016-12-05 02:59) @project(Visuels)
+    ✔ Session Dashboard @done(2016-12-05 02:59) @project(Visuels)
 
 ___________________________________________________________
 Notation:
     ✔ NoSQL @Needed @done(2016-11-18 16:05) @project(Notation)
-    ☐ Respect what is asked
-    ☐ Fonctionnal
+    ✔ Respect what is asked @done(2016-12-05 02:58) @project(Notation) @quitdone
+    ✔ Fonctionnal @done(2016-12-05 02:58) @project(Notation)
     ✔ API Rest (Manage JSON) @done(2016-11-24 16:19) @project(Notation)
-    ☐ Clean and detailled
-    ☐ Asynchrone
-    ☐ Security + Error management
+    ✔ Clean and detailled @done(2016-12-05 02:58) @project(Notation)
+    ✔ Asynchrone @done(2016-12-05 02:58) @project(Notation)
+    ✔ Security  @done(2016-12-05 02:58) @project(Notation)
+    ✔ Comment all the code @done(2016-12-05 02:59) @project(Notation)
+    ☐ Error management @not @really @done
     ✔ Database and ExpressJs @done(2016-11-18 16:05) @project(Notation)
     ✔ Authentication @done(2016-11-30 02:31) @project(Notation)
-    ☐ Import teams notion
+    ✔ Import teams notion @halfdone @done(2016-12-05 02:59) @project(Notation)
     ✔ Use Git for code versionning @done(2016-11-18 16:05) @project(Notation)
     ✔ Security against SQL injections @done(2016-11-24 16:20) @project(Notation)
