@@ -1,8 +1,10 @@
+* {
+  font-family: "Comic Sans Ms";
+}
 
 body {
   background-image: url("http://img4.hostingpics.net/pics/500204CsOiC7X.gif");
   background-size: cover;
-
   font: 1.2em Helvetica, "Lucida grande", Arial, sans-serif;
   color: #ffffff;
 }

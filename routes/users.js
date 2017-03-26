@@ -1,6 +1,13 @@
 const router = require('express').Router()
 const User = require('../models/user')
 
+const moment = require('moment')
+const Todo = require('../models/todos.js')
+const Team = require('../models/teams.js')
+
+
+moment.locale('fr')
+
 /* Users : liste */
 router.get('/', function(req, res, next) {
   let limit = parseInt(req.query.limit) || 20
@@ -117,40 +124,6 @@ router.delete('/:userId', (req, res, next) => {
   }).catch(next)
 })
 
-module.exports = router
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///
-=======
-const User = require('../models/users.js')
-const moment = require('moment')
-const Todo = require('../models/todos.js')
-const Team = require('../models/teams.js')
-moment.locale('fr')
-
 // Route GET pour avoir la liste des utilisateurs
 router.get('/', function(req, res, next) {
 	User.getAll(function(users){
@@ -214,4 +187,3 @@ router.delete('/:id', (req, res, next) => {
 })
 
 module.exports = router
->>>>>>> d5c9f585a20012fe1819cc3f95209da6e36f0e3f
