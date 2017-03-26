@@ -1,0 +1,74 @@
+Deadline:
+    ☐ Lundi 5 Décembre 2016 @Critical
+
+___________________________________________________________
+BDD NoSQL:
+    ☐ Token with Redis (Ioredis) @Optional
+    ☐ Database MongoDB (Mongoose) @Needed
+
+___________________________________________________________
+Users:
+    ☐ Create User Table in Database
+    ☐ DL old Skeleton
+    ☐ Add TD2 elements
+    ☐ Add Password attribute
+    ☐ Method GET
+    ☐ Method PUT
+    ☐ Method POST
+    ☐ Method DELETE
+    ☐ Manage JSON @Needed
+
+    ☐ Use bcrypt module to hash password
+    ☐ Add cookie-parser middleware
+
+___________________________________________________________
+Session:
+    ☐ Create Sessions Table in Database (userId, accessToken, createdAt, expiresAt)
+    ☐ Create REST "/sessions" resssource
+        ☐ GET --> Display user/pass form
+        ☐ POST --> Create accessToken and save it in database
+            ☐ Set a cookie in HTML
+            ☐ Return {accessToken: XXXX} in json
+
+        ☐ DELETE --> Delete accessToken
+
+    ☐ Create a new middleware for authentication
+        ☐ HTML --> check AccessToken cookie
+        ☐ JSON --> check X-AccessToken header
+        ☐ No accessToken --> error for JSON, redicrect to authentication html page
+
+___________________________________________________________
+Todos:
+    ☐ Create Todos Table in Database
+    ☐ Create REST "/todos" resssource (userId, message, createdAt, updatedAt, completedAt)
+    ☐ Home page redirects to /Todos
+    ☐ Each User can see his Todos, check his todos,  complete his todos and move it to the end of the list
+
+___________________________________________________________
+Team:
+    ☐ A user can be in a team or not
+    ☐ A user has an option "See my todos / See team's todos"
+    ☐ Todos can be given to an other user from the same team
+    ☐ Todos can be completed by every user of the team
+
+___________________________________________________________
+Visuels:
+    ☐ User
+    ☐ Users
+    ☐ Todos                 @Boostrap??
+    ☐ Teams
+
+___________________________________________________________
+Notation:
+    ☐ NoSQL @Needed
+    ☐ Respect what is asked
+    ☐ Fonctionnal
+    ☐ API Rest (Manage JSON)
+    ☐ Clean and detailled
+    ☐ Asynchrone
+    ☐ Security + Error management
+    ☐ Database and ExpressJs
+    ☐ Authentication
+    ☐ Import teams notion
+    ☐ Use Git for code versionning
+    ☐ Security against SQL injections
