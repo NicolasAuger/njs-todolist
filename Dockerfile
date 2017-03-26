@@ -1,8 +1,13 @@
 FROM node:alpine
 
-RUN apk update && mkdir /projects
-ADD . ./projects
-EXPOSE 8080
-WORKDIR /projects
+RUN mkdir -p /app
+WORKDIR /app
+
+COPY package.json /app
 RUN npm install
-CMD ["node", "app.js"]
+
+COPY . /app
+
+USER node
+EXPOSE 8080
+CMD [ "node", "." ]
