@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+    h1= title
+    br
+    br
+    table(border=1, cellspacing='5px')
+        tr
+            th
+                a(href='/teams/add')
+                    img(src='https://cdn3.iconfinder.com/data/icons/rcons-file-action/512/add_file-128.png', width='50px', height='50px')
+            th Nom
+            th Slogan
+            th Nombre de membres
+            th Créée :
+            th Modifiée :
+            th(colspan=3) Actions :
+        each team in teams
+            tr
+                td
+                td #{team.name}
+                td #{team.slogan}
+                td #{team.users.length > 0 ? team.users.length : "Cette team ne possède encore aucun membre !"}
+                td #{moment(team.createdAt).fromNow()}
+                td #{moment(team.modifiedAt).fromNow() != "Invalid date" ? moment(team.modifiedAt).fromNow() :  "Not Updated Yet !"}
+
+                td(class='show')
+                    a(href='/teams/' + team._id) &nbsp;  Voir &nbsp;
+                td(class='edit')
+                    a(href='/teams/' + team._id + '/edit') &nbsp; Éditer &nbsp;
+                td(class='delete')
+                    a(href='/teams/' + team._id + '?_method=delete') &nbsp; Supprimer &nbsp;

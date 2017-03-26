@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+  h1= title
+  br
+  br
+  table(border=1)
+    tr
+      th ID
+      td= todo._id
+    tr
+      th Auteur
+      td= todo.author
+    tr
+      th Tâche
+      td= todo.task
+    tr
+      th Destinataire
+      td= todo.recipient
+    //- tr
+    //-   th Team
+    //-   td= todo.team
+    tr
+      th Créée :
+      td #{moment(todo.createdAt).fromNow()}
+    tr
+      th Modifiée :
+      td #{moment(todo.modifiedAt).fromNow() != "Invalid date" ? moment(todo.modifiedAt).fromNow() :  "Not Updated Yet !"}
+    tr
+      th Completée :
+      td #{moment(todo.completedAt).fromNow() != "Invalid date" ? moment(todo.completedAt).fromNow() :  "Not Completed Yet !"}

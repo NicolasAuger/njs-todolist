@@ -3,6 +3,14 @@ extends ../layout
 block content
   table(border=1)
     tr
+  h1= title
+  br
+  br
+  table(border=1)
+    tr
+      th ID
+      td= user._id
+    tr
       th Pseudo
       td= user.pseudo
     tr
@@ -14,3 +22,12 @@ block content
     tr
       th Email
       td= user.email
+    tr
+      th Team
+      td #{user.team != null ? user.team.name : "N'appartient à aucune team"}
+    tr
+      th Crée le :
+      td #{moment(user.createdAt).fromNow()}
+    tr
+      th Modifié le :
+      td #{moment(user.modifiedAt).fromNow() != "Invalid date" ? moment(user.modifiedAt).fromNow() :  "Not Updated Yet !"}

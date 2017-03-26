@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  h1= title
+  br
+  br
+  form(
+    method="post"
+    action=action
+    id="create_form"
+  )
+    h2 Création d'une nouvelle team
+    input(name="name" value=team.name placeholder="* Nom de votre team")
+
+    input(name="slogan" value=team.slogan placeholder="* Slogan de votre team")
+
+    input(type="submit" value="Envoyer" id="create_form_submit")

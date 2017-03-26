@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  h1= title
+  br
+  br
+  form(
+    method="post"
+    action=action
+    id="create_form"
+  )
+    h2 Création d'une nouvelle tâche
+    input(name="author" placeholder="* Auteur" value=todo.author)
+
+    input(name="task" placeholder="* Tâche" value=todo.task)
+
+    span(id="choix_team") * Destinataire :
+    select(name="recipient")
+        each user, i in users
+            option(value=todo.recipient) #{user.pseudo}
+
+    input(type="submit" value="Envoyer" id="create_form_submit")

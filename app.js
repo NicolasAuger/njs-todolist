@@ -3,18 +3,32 @@ const path = require('path')
 
 // Dépendances 3rd party
 const express = require('express')
-const bodyParser = require('body-parser')
-const methodOverride = require('method-override')
-const sass = require('node-sass-middleware')
 const db = require('sqlite')
 
+const methodOverride = require('method-override')
+const sass = require('node-sass-middleware')
+const mongoose = require('mongoose')
+const moment = require('moment')
+const bodyParser = require('body-parser')
+var session = require('express-session')
+// const Session = require('./models/session')
+moment.locale('fr')
 // Constantes et initialisations
 const PORT = process.PORT || 8080
 const app = express()
 
+// load the cookie-parsing middleware
+var cookieParser = require('cookie-parser');
+
+mongoose.Promise = global.Promise
+mongoose.connect('mongodb://localhost/todolist', function(err) {
+    if (err) { throw err}
+})
 // Mise en place des vues
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+app.locals.moment = require('moment');
 
 // Middleware pour forcer un verbe HTTP
 app.use(methodOverride('_method', { methods: [ 'POST', 'GET' ] }))
@@ -22,6 +36,17 @@ app.use(methodOverride('_method', { methods: [ 'POST', 'GET' ] }))
 // Middleware pour parser le body
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+
+
+//Middleware pour parser les cookies
+app.use(cookieParser());
+
+//Middleware pour utiliser les sessions
+app.use(session({
+    secret:"secretStringForTodolistProjet",
+    resave: false,
+    saveUninitialized: true
+}));
 
 // Préprocesseur sur les fichiers scss -> css
 app.use(sass({
@@ -45,6 +70,9 @@ app.use(express.static(path.join(__dirname, 'assets')))
 // La liste des différents routeurs (dans l'ordre)
 app.use('/', require('./routes/index'))
 app.use('/users', require('./routes/users'))
+
+app.use('/todos', require('./routes/todos'))
+app.use('/teams', require('./routes/teams'))
 
 // Erreur 404
 app.use(function(req, res, next) {
@@ -70,9 +98,15 @@ app.use(function(err, req, res, next) {
   // On set le status de la réponse
   res.status(data.status)
 
-  // Réponse multi-format
   res.format({
-    html: () => { res.render('error', data) },
+    html: () => {
+      res.render('error', {
+      message: data.message,
+      error: data.error,
+      status: data.status,
+      data : JSON.stringify(data)
+      }
+    )},
     json: () => { res.send(data) }
   })
 })

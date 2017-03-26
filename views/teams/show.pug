@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+  h1= title
+  br
+  br
+  table(border=1)
+    tr
+      th ID
+      td= team._id
+    tr
+      th Nom
+      td= team.name
+    tr
+      th Slogan
+      td= team.slogan
+    tr
+      th Nombre de membres
+      td= nbr || "Cette team ne possède encore aucun membre !"
+    tr
+      th Liste des membres
+      td
+        if members.length < 1
+          | Cette team ne possède encore aucun membres !
+        each user in members
+            p #{user.pseudo}
+
+    //-   td= members != null ? members : "Cette team ne possède encore aucun membre !"
+    tr
+      th Créée :
+      td #{moment(team.createdAt).fromNow()}
+    tr
+      th Modifiée :
+      td #{moment(team.modifiedAt).fromNow() != "Invalid date" ? moment(team.modifiedAt).fromNow() :  "Not Updated Yet !"}

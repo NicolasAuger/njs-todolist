@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+  h1= title
+  br
+  br
+  form(
+    method="post"
+    action=action
+    id="create_form"
+  )
+    h2 Création d'un nouveau compte
+    div(id="create_form_pass")
+
+      input(name="pseudo" placeholder="* Pseudo")
+
+      input(name="firstname" placeholder="* Prénom")
+
+      input(name="lastname" placeholder="* Nom")
+
+    div(id=("create_form_pass"))
+      input(name="email" placeholder="* Email")
+      input(type="password" placeholder="* Mot de passe" name="password1")
+
+      input(type="password" placeholder="* Confirmer votre mot de passe" name="password2")
+    div(id="clear")
+    span(id="choix_team") Choisissez une team (optionel) :
+    select(name="team")
+        option(value="none", selected) Aucune
+        each team, i in teams
+            option(value=team._id) Team : #{team.name}
+
+    input(id="create_form_submit" type="submit" value="Envoyer")

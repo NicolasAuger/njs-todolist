@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+    h1= title
+    br
+    br
+    table(border=1, cellspacing='5px')
+        tr
+            th
+                a(href='/'+userId+'/todos/add')
+                    img(src='https://cdn3.iconfinder.com/data/icons/rcons-file-action/512/add_file-128.png', width='50px', height='50px')
+            th Auteur
+            th Tâche
+            th Destinataire
+            //- th Team
+            th Créée :
+            th Modifiée :
+            th Completée :
+            th(colspan=3) Actions :
+        each todo in todos
+            tr(class=todo.is_completed ? 'complete' : '' id=todo.recipient==userPseudo ? '' : 'no-matche')
+                td
+                    a(href=todo.is_completed ? '' : '/'+userId+'/todos/'+todo._id+'/complete')
+                        button(disabled=todo.is_completed) &nbsp; #{todo.is_completed ? "Completée" : "Completer"}
+                            img(src=todo.is_completed ? "https://www.shareicon.net/data/128x128/2015/09/29/648398_sign_512x512.png" : "http://image.flaticon.com/icons/png/128/61/61221.png" , width='20px', height='20px' style={float:'left'})
+                td #{todo.author}
+                td #{todo.task}
+                td #{todo.recipient}
+                //- td #{todo.team}
+                td #{moment(todo.createdAt).fromNow()}
+                td #{moment(todo.modifiedAt).fromNow() != "Invalid date" ? moment(todo.modifiedAt).fromNow() :  "Not Updated Yet !"}
+                td #{moment(todo.completedAt).fromNow() != "Invalid date" ? moment(todo.completedAt).fromNow() :  "Not Completed Yet !"}
+
+                td(class='show')
+                    a(href="/"+userId+"/todos/"+todo._id) &nbsp;  Voir &nbsp;
+                td(class=todo.is_completed ? "not-active-div" : 'edit')
+                    a(href="/"+userId+"/todos/"+todo._id+"/edit", class="not-active") &nbsp; Éditer &nbsp;
+                td(class='delete')
+                    a(href="/"+userId+"/todos/"+todo._id+"?_method=delete") &nbsp; Supprimer &nbsp;

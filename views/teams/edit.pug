@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  h1= title
+  br
+  br
+  form(
+    method="post"
+    action=action
+    id="create_form"
+  )
+    h2  Modification de la team : #{team.name}
+    | Modifier le Nom de team :
+    input(name="name" placeholder=team.name value=team.name)
+    | Modifier le slogan de team :
+    input(name="slogan" placeholder=team.slogan value=team.slogan)
+    input(type="submit" id="create_form_submit" value="Modifier")
